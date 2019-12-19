@@ -1,19 +1,34 @@
 import React, { useState } from "react";
 
 const App: React.FC = () => {
-  const [showLoginButton, setShowLoginButton] = useState(true);
-  const loginClickHandler = () => {
-    setShowLoginButton(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginButtonClickHandler = () => {
+    setIsLoggedIn(true);
+  };
+
+  const signOutButtonClickHandler = () => {
+    setIsLoggedIn(false);
   };
 
   return (
     <>
-      {showLoginButton && (
-        <button onClick={loginClickHandler} data-testid="login-button">
+      {!isLoggedIn && (
+        <button onClick={loginButtonClickHandler} data-testid="login-button">
           Login
         </button>
       )}
-      {!showLoginButton && <div data-testid="logged-in-text">Logged in</div>}
+      {isLoggedIn && (
+        <>
+          <button
+            onClick={signOutButtonClickHandler}
+            data-testid="sign-out-button"
+          >
+            Sign Out
+          </button>
+          <div data-testid="logged-in-text">Logged in</div>
+        </>
+      )}
     </>
   );
 };
