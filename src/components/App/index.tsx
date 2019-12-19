@@ -7,6 +7,10 @@ const App: React.FC = () => {
     setIsLoggedIn(true);
   };
 
+  const signOutButtonClickHandler = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
       {!isLoggedIn && (
@@ -16,7 +20,12 @@ const App: React.FC = () => {
       )}
       {isLoggedIn && (
         <>
-          <button data-testid="sign-out-button">Sign Out</button>
+          <button
+            onClick={signOutButtonClickHandler}
+            data-testid="sign-out-button"
+          >
+            Sign Out
+          </button>
           <div data-testid="logged-in-text">Logged in</div>
         </>
       )}
