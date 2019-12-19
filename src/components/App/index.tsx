@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 const App: React.FC = () => {
+  const [showLoginButton, setShowLoginButton] = useState(true);
   const loginClickHandler = () => {
-    console.log("Login");
+    setShowLoginButton(false);
   };
 
-  return <button onClick={loginClickHandler}>Login</button>;
+  return (
+    <>
+      {showLoginButton && (
+        <button onClick={loginClickHandler} data-testid="login-button">
+          Login
+        </button>
+      )}
+      {!showLoginButton && <div data-testid="logged-in-text">Logged in</div>}
+    </>
+  );
 };
 
 export default App;
