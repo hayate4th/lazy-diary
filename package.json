@@ -17,6 +17,9 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --ext .ts,tsx"
+    ],
+    ".circleci/config.yml": [
+      "circleci config validate"
     ]
   },
   "keywords": [],
