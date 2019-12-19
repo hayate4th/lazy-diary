@@ -41,4 +41,16 @@ describe("App", () => {
     expect(queryByTestId(/sign-out-button/i)).toBeNull();
     expect(queryByTestId(/logged-in-text/i)).toBeNull();
   });
+
+  // TODO: Find a better way to run this test
+  it("Login button shows after sign out button is clicked", () => {
+    const { getByTestId } = render(<App />);
+    const loginButton = getByTestId(/login-button/i);
+    fireEvent.click(loginButton);
+
+    const signOutButton = getByTestId(/sign-out-button/i);
+    fireEvent.click(signOutButton);
+
+    expect(getByTestId(/login-button/i)).toBeTruthy();
+  });
 });
