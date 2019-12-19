@@ -13,7 +13,12 @@ const App: React.FC = () => {
           Login
         </button>
       )}
-      {!showLoginButton && <div data-testid="logged-in-text">Logged in</div>}
+      {!showLoginButton && (
+        <>
+          <button data-testid="sign-out-button">Sign Out</button>
+          <div data-testid="logged-in-text">Logged in</div>
+        </>
+      )}
     </>
   );
 };
