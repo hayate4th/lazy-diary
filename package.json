@@ -9,6 +9,16 @@
     "lint": "eslint --ext .ts,tsx src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext .ts,tsx"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
