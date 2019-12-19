@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  check-syntax:
+    docker:
+      - image: circleci/node:12.13.1
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run ESlint
+          command: npx eslint --ext .ts,tsx src
+  analyze-tsc:
+    docker:
+      - image: circleci/node:12.13.1
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tsc
+          command: npx tsc --noEmit
+
+workflows:
+  version: 2.1
+  test-and-deploy:
+    jobs:
+      - check-syntax
+      - analyze-tsc
