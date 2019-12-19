@@ -1,26 +1,26 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  mode: 'production',
+  mode: "production",
   entry: {
-    index: './src/index.tsx'
+    index: "./src/index.tsx"
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, "public"),
+    filename: "bundle.js"
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader'
+        use: "ts-loader"
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx']
+    extensions: [".js", ".ts", ".tsx"]
   },
   devServer: {
-    contentBase: './public'
+    contentBase: "./public"
   }
 }
