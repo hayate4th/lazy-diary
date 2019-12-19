@@ -23,6 +23,17 @@ jobs:
       - run:
           name: Run tsc
           command: npx tsc --noEmit
+  acceptance-test:
+    docker:
+      - image: circleci/node:12.13.1
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run test
+          command: npm test
 
 workflows:
   version: 2.1
@@ -30,3 +41,7 @@ workflows:
     jobs:
       - check-syntax
       - analyze-tsc
+      - acceptance-test:
+          requires:
+            - check-syntax
+            - analyze-tsc
