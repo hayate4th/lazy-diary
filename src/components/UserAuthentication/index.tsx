@@ -17,15 +17,15 @@ const UserAuthentication: React.FC<Props> = ({
       {!isLoggedIn && (
         <Button
           text="Login"
+          dataTestId="login-button"
           onClickHandler={loginButtonClickHandler}
-          data-testid="login-button"
         />
       )}
       {isLoggedIn && (
         <Button
           text="Sign Out"
+          dataTestId="sign-out-button"
           onClickHandler={signOutButtonClickHandler}
-          data-testid="sign-out-button"
         />
       )}
     </>
