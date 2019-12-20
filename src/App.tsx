@@ -1,8 +1,9 @@
 import React from "react";
-import UserAuthentication from "./containers/UserAuthentication";
+
+import AppHeader from "./components/AppHeader";
 
 const App: React.FC = () => {
-  return <UserAuthentication />;
+  return <AppHeader />;
 };
 
 export default App;
