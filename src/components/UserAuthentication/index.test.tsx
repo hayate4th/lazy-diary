@@ -5,29 +5,29 @@ import UserAuthentication, { Props } from ".";
 
 describe("App", () => {
   const baseProps: Props = {
-    isLoggedIn: false,
-    loginButtonClickHandler: jest.fn(),
+    isSignedIn: false,
+    signInButtonClickHandler: jest.fn(),
     signOutButtonClickHandler: jest.fn()
   };
 
-  it("Login button exist and sign out button does not exist when isLoggedIn is false", () => {
+  it("Sign in button exist and sign out button does not exist when isSignedIn is false", () => {
     const props: Props = {
       ...baseProps,
-      isLoggedIn: false
+      isSignedIn: false
     };
 
     const { getByTestId, queryByTestId } = render(
       <UserAuthentication {...props} />
     );
 
-    expect(getByTestId(/login-button/i)).toBeTruthy();
+    expect(getByTestId(/sign-in-button/i)).toBeTruthy();
     expect(queryByTestId(/sign-out-button/i)).toBeNull();
   });
 
-  it("Sign out button exists and login button does not exist when isLoggedIn is true", () => {
+  it("Sign out button exists and sign in button does not exist when isSignedIn is true", () => {
     const props: Props = {
       ...baseProps,
-      isLoggedIn: true
+      isSignedIn: true
     };
 
     const { getByTestId, queryByTestId } = render(
@@ -35,6 +35,6 @@ describe("App", () => {
     );
 
     expect(getByTestId(/sign-out-button/i)).toBeTruthy();
-    expect(queryByTestId(/login-button/i)).toBeNull();
+    expect(queryByTestId(/sign-in-button/i)).toBeNull();
   });
 });
