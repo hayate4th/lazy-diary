@@ -26,7 +26,6 @@ const UserAuthentication: React.FC<Props> = ({
           >
             Sign Out
           </button>
-          <div data-testid="logged-in-text">Logged in</div>
         </>
       )}
     </>
