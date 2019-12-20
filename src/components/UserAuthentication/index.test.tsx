@@ -16,10 +16,12 @@ describe("App", () => {
       isLoggedIn: false
     };
 
-    const { getByTestId } = render(<UserAuthentication {...props} />);
+    const { getByTestId, queryByTestId } = render(
+      <UserAuthentication {...props} />
+    );
 
     expect(getByTestId(/login-button/i)).toBeTruthy();
-    expect(getByTestId(/sign-out-button/i)).toBeFalsy();
+    expect(queryByTestId(/sign-out-button/i)).toBeNull();
   });
 
   it("Sign out button exists and login button does not exist when isLoggedIn is true", () => {
@@ -28,9 +30,11 @@ describe("App", () => {
       isLoggedIn: true
     };
 
-    const { getByTestId } = render(<UserAuthentication {...props} />);
+    const { getByTestId, queryByTestId } = render(
+      <UserAuthentication {...props} />
+    );
 
     expect(getByTestId(/sign-out-button/i)).toBeTruthy();
-    expect(getByTestId(/login-button/i)).toBeFalsy();
+    expect(queryByTestId(/login-button/i)).toBeNull();
   });
 });
