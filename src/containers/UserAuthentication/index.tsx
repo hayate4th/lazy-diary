@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import UserAuthenticationComponent from "../../components/UserAuthentication";
 
 const UserAuthentication: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
-  const loginButtonClickHandler = () => setIsLoggedIn(true);
-  const signOutButtonClickHandler = () => setIsLoggedIn(false);
+  const signInButtonClickHandler = () => setIsSignedIn(true);
+  const signOutButtonClickHandler = () => setIsSignedIn(false);
 
   return (
     <UserAuthenticationComponent
-      isLoggedIn={isLoggedIn}
-      loginButtonClickHandler={loginButtonClickHandler}
+      isSignedIn={isSignedIn}
+      signInButtonClickHandler={signInButtonClickHandler}
       signOutButtonClickHandler={signOutButtonClickHandler}
     />
   );

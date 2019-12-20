@@ -2,26 +2,26 @@ import React from "react";
 import Button from "./Button";
 
 export interface Props {
-  isLoggedIn: boolean;
-  loginButtonClickHandler: () => void;
+  isSignedIn: boolean;
+  signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
 }
 
 const UserAuthentication: React.FC<Props> = ({
-  isLoggedIn,
-  loginButtonClickHandler,
+  isSignedIn,
+  signInButtonClickHandler,
   signOutButtonClickHandler
 }) => {
   return (
     <>
-      {!isLoggedIn && (
+      {!isSignedIn && (
         <Button
-          text="Login"
-          dataTestId="login-button"
-          onClickHandler={loginButtonClickHandler}
+          text="Sign In"
+          dataTestId="sign-in-button"
+          onClickHandler={signInButtonClickHandler}
         />
       )}
-      {isLoggedIn && (
+      {isSignedIn && (
         <Button
           text="Sign Out"
           dataTestId="sign-out-button"
