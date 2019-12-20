@@ -1,5 +1,6 @@
 import React from "react";
-import Button from "./Button";
+
+import Button from "../Button";
 
 export interface Props {
   isSignedIn: boolean;
