@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
-const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export interface Props {
+  isLoggedIn: boolean;
+  loginButtonClickHandler: () => void;
+  signOutButtonClickHandler: () => void;
+}
 
-  const loginButtonClickHandler = () => {
-    setIsLoggedIn(true);
-  };
-
-  const signOutButtonClickHandler = () => {
-    setIsLoggedIn(false);
-  };
-
+const UserAuthentication: React.FC<Props> = ({
+  isLoggedIn,
+  loginButtonClickHandler,
+  signOutButtonClickHandler
+}) => {
   return (
     <>
       {!isLoggedIn && (
@@ -26,11 +26,10 @@ const App: React.FC = () => {
           >
             Sign Out
           </button>
-          <div data-testid="logged-in-text">Logged in</div>
         </>
       )}
     </>
   );
 };
 
-export default App;
+export default UserAuthentication;
