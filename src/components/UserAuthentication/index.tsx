@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 export interface Props {
   isLoggedIn: boolean;
@@ -14,19 +15,18 @@ const UserAuthentication: React.FC<Props> = ({
   return (
     <>
       {!isLoggedIn && (
-        <button onClick={loginButtonClickHandler} data-testid="login-button">
-          Login
-        </button>
+        <Button
+          text="Login"
+          onClickHandler={loginButtonClickHandler}
+          data-testid="login-button"
+        />
       )}
       {isLoggedIn && (
-        <>
-          <button
-            onClick={signOutButtonClickHandler}
-            data-testid="sign-out-button"
-          >
-            Sign Out
-          </button>
-        </>
+        <Button
+          text="Sign Out"
+          onClickHandler={signOutButtonClickHandler}
+          data-testid="sign-out-button"
+        />
       )}
     </>
   );
