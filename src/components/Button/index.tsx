@@ -20,9 +20,10 @@ const StyledButton = styled.button`
   background-color: #49c6dd;
   border: none;
   border-radius: 6px;
-  color: #ffffff;
+  color: #f7f6f6;
   cursor: pointer;
-  font-size: 24px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 2em;
   font-weight: bold;
   padding: 5px 10px;
 

@@ -23,8 +23,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.div`
-  color: #ffffff;
-  font-size: 24px;
+  font-size: 2.5em;
   font-weight: bold;
 `;
 
