@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import styled from "styled-components";
 
 import Button from "../Button";
 
@@ -23,7 +24,7 @@ const UserAuthentication: React.FC<Props> = ({
   return (
     <>
       {!isSignedIn && (
-        <>
+        <SignInUpButtonWrapper>
           <Button
             text="Sign In"
             dataTestId="sign-in-button"
@@ -34,7 +35,7 @@ const UserAuthentication: React.FC<Props> = ({
             dataTestId="sign-up-button"
             onClickHandler={signUpButtonClickHandler}
           />
-        </>
+        </SignInUpButtonWrapper>
       )}
       {isSignedIn && (
         <Button
@@ -47,5 +48,12 @@ const UserAuthentication: React.FC<Props> = ({
     </>
   );
 };
+
+// TODO: Find a better way to create a space between the two buttons
+const SignInUpButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 220px;
+`;
 
 export default UserAuthentication;
