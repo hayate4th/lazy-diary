@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Button from "../Button";
 
-Modal.setAppElement("#root");
+Modal.setAppElement("body");
 
 export interface Props {
   isSignedIn: boolean;
@@ -49,6 +49,7 @@ const UserAuthentication: React.FC<Props> = ({
       <Modal
         isOpen={isSigningUp}
         onRequestClose={modalBackgroundClickHandler}
+        testId="sign-up-modal"
       />
     </>
   );

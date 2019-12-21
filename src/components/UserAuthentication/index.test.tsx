@@ -42,4 +42,28 @@ describe("App", () => {
     expect(queryByTestId(/sign-in-button/i)).toBeNull();
     expect(queryByTestId(/sign-up-button/i)).toBeNull();
   });
+
+  it("Sign up modal does not exist when isSigningUp is false", () => {
+    const props: Props = {
+      ...baseProps,
+      isSigningUp: false
+    };
+
+    const { queryByTestId } = render(<UserAuthentication {...props} />);
+
+    expect(queryByTestId(/sign-up-modal/i)).toBeNull();
+  });
+
+  it("Sign up modal exists when isSigningUp is true", () => {
+    const props: Props = {
+      ...baseProps,
+      isSigningUp: true
+    };
+
+    const { getByTestId, queryByTestId } = render(
+      <UserAuthentication {...props} />
+    );
+
+    expect(getByTestId(/sign-up-modal/i)).toBeTruthy();
+  });
 });
