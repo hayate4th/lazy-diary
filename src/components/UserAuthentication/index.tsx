@@ -7,10 +7,14 @@ import Button from "../Button";
 Modal.setAppElement("body");
 const modalContentStyle = {
   content: {
-    top: "50%",
+    bottom: "auto",
+    backgroundColor: "#f7f6f6",
+    color: "#434344",
+    fontSize: "1.5em",
     left: "50%",
     right: "auto",
-    bottom: "auto"
+    top: "50%",
+    transform: "translate(-50%, -50%)"
   }
 };
 
