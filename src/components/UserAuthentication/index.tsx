@@ -64,7 +64,14 @@ const UserAuthentication: React.FC<Props> = ({
         contentLabel="sign up via email and password"
         style={modalContentStyle}
         testId="sign-up-modal"
-      />
+      >
+        <div>Email</div>
+        <input type="email" />
+        <div>Passowrd</div>
+        <input type="password" />
+        <div>Confirm Passowrd</div>
+        <input type="password" />
+      </Modal>
     </>
   );
 };
