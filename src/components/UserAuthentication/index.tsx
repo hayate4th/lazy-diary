@@ -1,9 +1,13 @@
 import React from "react";
+import Modal from "react-modal";
 
 import Button from "../Button";
 
+Modal.setAppElement("#root");
+
 export interface Props {
   isSignedIn: boolean;
+  isSigningUp: boolean;
   signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
   signUpButtonClickHandler: () => void;
@@ -11,6 +15,7 @@ export interface Props {
 
 const UserAuthentication: React.FC<Props> = ({
   isSignedIn,
+  isSigningUp,
   signInButtonClickHandler,
   signOutButtonClickHandler,
   signUpButtonClickHandler
@@ -38,6 +43,7 @@ const UserAuthentication: React.FC<Props> = ({
           onClickHandler={signOutButtonClickHandler}
         />
       )}
+      <Modal isOpen={isSigningUp} />
     </>
   );
 };

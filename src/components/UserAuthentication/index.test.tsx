@@ -6,6 +6,7 @@ import UserAuthentication, { Props } from ".";
 describe("App", () => {
   const baseProps: Props = {
     isSignedIn: false,
+    isSigningUp: false,
     signInButtonClickHandler: jest.fn(),
     signOutButtonClickHandler: jest.fn(),
     signUpButtonClickHandler: jest.fn()
