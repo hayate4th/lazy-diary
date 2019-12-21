@@ -7,12 +7,16 @@ const UserAuthentication: React.FC = () => {
 
   const signInButtonClickHandler = () => setIsSignedIn(true);
   const signOutButtonClickHandler = () => setIsSignedIn(false);
+  const signUpButtonClickHandler = () => {
+    console.log("sign up");
+  };
 
   return (
     <UserAuthenticationComponent
       isSignedIn={isSignedIn}
       signInButtonClickHandler={signInButtonClickHandler}
       signOutButtonClickHandler={signOutButtonClickHandler}
+      signUpButtonClickHandler={signUpButtonClickHandler}
     />
   );
 };

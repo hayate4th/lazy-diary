@@ -6,21 +6,30 @@ export interface Props {
   isSignedIn: boolean;
   signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
+  signUpButtonClickHandler: () => void;
 }
 
 const UserAuthentication: React.FC<Props> = ({
   isSignedIn,
   signInButtonClickHandler,
-  signOutButtonClickHandler
+  signOutButtonClickHandler,
+  signUpButtonClickHandler
 }) => {
   return (
     <>
       {!isSignedIn && (
-        <Button
-          text="Sign In"
-          dataTestId="sign-in-button"
-          onClickHandler={signInButtonClickHandler}
-        />
+        <>
+          <Button
+            text="Sign In"
+            dataTestId="sign-in-button"
+            onClickHandler={signInButtonClickHandler}
+          />
+          <Button
+            text="Sign Up"
+            dataTestId="sign-up-button"
+            onClickHandler={signUpButtonClickHandler}
+          />
+        </>
       )}
       {isSignedIn && (
         <Button
