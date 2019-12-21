@@ -6,7 +6,7 @@ import UserAuthentication from "../../containers/UserAuthentication";
 const AppHeader: React.FC = () => {
   return (
     <Header>
-      <Title>easy-diary</Title>
+      <Title>Lazy Diary</Title>
       <div>
         <UserAuthentication />
       </div>
