@@ -9,7 +9,8 @@ describe("App", () => {
     isSigningUp: false,
     signInButtonClickHandler: jest.fn(),
     signOutButtonClickHandler: jest.fn(),
-    signUpButtonClickHandler: jest.fn()
+    signUpButtonClickHandler: jest.fn(),
+    modalBackgroundClickHandler: jest.fn()
   };
 
   it("Sign in/up button exist and sign out button does not exist when isSignedIn is false", () => {

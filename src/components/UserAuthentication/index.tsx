@@ -12,6 +12,7 @@ export interface Props {
   signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
   signUpButtonClickHandler: () => void;
+  modalBackgroundClickHandler: () => void;
 }
 
 const UserAuthentication: React.FC<Props> = ({
@@ -19,7 +20,8 @@ const UserAuthentication: React.FC<Props> = ({
   isSigningUp,
   signInButtonClickHandler,
   signOutButtonClickHandler,
-  signUpButtonClickHandler
+  signUpButtonClickHandler,
+  modalBackgroundClickHandler
 }) => {
   return (
     <>
@@ -44,7 +46,10 @@ const UserAuthentication: React.FC<Props> = ({
           onClickHandler={signOutButtonClickHandler}
         />
       )}
-      <Modal isOpen={isSigningUp} />
+      <Modal
+        isOpen={isSigningUp}
+        onRequestClose={modalBackgroundClickHandler}
+      />
     </>
   );
 };

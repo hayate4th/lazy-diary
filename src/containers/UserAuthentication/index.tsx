@@ -9,6 +9,7 @@ const UserAuthentication: React.FC = () => {
   const signInButtonClickHandler = () => setIsSignedIn(true);
   const signOutButtonClickHandler = () => setIsSignedIn(false);
   const signUpButtonClickHandler = () => setIsSigningUp(true);
+  const modalBackgroundClickHandler = () => setIsSigningUp(false);
 
   return (
     <UserAuthenticationComponent
@@ -17,6 +18,7 @@ const UserAuthentication: React.FC = () => {
       signInButtonClickHandler={signInButtonClickHandler}
       signOutButtonClickHandler={signOutButtonClickHandler}
       signUpButtonClickHandler={signUpButtonClickHandler}
+      modalBackgroundClickHandler={modalBackgroundClickHandler}
     />
   );
 };
