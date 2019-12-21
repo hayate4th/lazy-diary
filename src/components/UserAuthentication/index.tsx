@@ -5,6 +5,14 @@ import styled from "styled-components";
 import Button from "../Button";
 
 Modal.setAppElement("body");
+const modalContentStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto"
+  }
+};
 
 export interface Props {
   isSignedIn: boolean;
@@ -49,6 +57,8 @@ const UserAuthentication: React.FC<Props> = ({
       <Modal
         isOpen={isSigningUp}
         onRequestClose={modalBackgroundClickHandler}
+        contentLabel="sign up via email and password"
+        style={modalContentStyle}
         testId="sign-up-modal"
       />
     </>
