@@ -22,6 +22,7 @@ const StyledButton = styled.button`
   border-radius: 6px;
   color: #f7f6f6;
   cursor: pointer;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 2em;
   font-weight: bold;
   padding: 5px 10px;
