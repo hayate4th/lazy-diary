@@ -108,7 +108,12 @@ const UserAuthentication: React.FC<Props> = ({
             />
           </FormRow>
           <FormButtonWrapper>
-            <Button text="Sign Up" type="submit" dataTestId="submit-button" />
+            <Button
+              text="Sign Up"
+              type="submit"
+              disabled
+              dataTestId="submit-button"
+            />
           </FormButtonWrapper>
         </form>
       </Modal>
@@ -123,6 +128,7 @@ const SignInUpButtonWrapper = styled.div`
   width: 220px;
 `;
 
+// TODO: Find a better way to create a space between the rows
 const FormRow = styled.div`
   display: flex;
   flex-direction: column;
