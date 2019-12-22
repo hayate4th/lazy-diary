@@ -3,13 +3,19 @@ import styled from "styled-components";
 
 interface Props {
   text: string;
+  type?: "button" | "submit" | "reset";
   dataTestId: string;
-  onClickHandler: () => void;
+  onClickHandler?: () => void;
 }
 
-const Button: React.FC<Props> = ({ text, dataTestId, onClickHandler }) => {
+const Button: React.FC<Props> = ({
+  text,
+  type,
+  dataTestId,
+  onClickHandler
+}) => {
   return (
-    <StyledButton onClick={onClickHandler} data-testid={dataTestId}>
+    <StyledButton onClick={onClickHandler} type={type} data-testid={dataTestId}>
       {text}
     </StyledButton>
   );
