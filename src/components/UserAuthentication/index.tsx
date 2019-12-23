@@ -1,9 +1,9 @@
 import React from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
-import { useFormik } from "formik";
 
 import Button from "../Button";
+import SignUpForm from "../../containers/SignUpForm";
 
 Modal.setAppElement("body");
 const modalContentStyle = {
@@ -36,16 +36,6 @@ const UserAuthentication: React.FC<Props> = ({
   signUpButtonClickHandler,
   modalBackgroundClickHandler
 }) => {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      confirmationPassword: ""
-    },
-    onSubmit: values => {
-      console.log(values);
-    }
-  });
   return (
     <>
       {!isSignedIn && (
@@ -76,46 +66,7 @@ const UserAuthentication: React.FC<Props> = ({
         style={modalContentStyle}
         testId="sign-up-modal"
       >
-        <form onSubmit={formik.handleSubmit}>
-          <FormRow>
-            <FormLabel htmlFor="email">Email Address</FormLabel>
-            <FormInput
-              id="email"
-              name="email"
-              type="email"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-          </FormRow>
-          <FormRow>
-            <FormLabel htmlFor="password">Password</FormLabel>
-            <FormInput
-              id="password"
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-          </FormRow>
-          <FormRow>
-            <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-            <FormInput
-              id="confirmationPassword"
-              name="confirmationPassword"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.confirmationPassword}
-            />
-          </FormRow>
-          <FormButtonWrapper>
-            <Button
-              text="Sign Up"
-              type="submit"
-              disabled
-              dataTestId="submit-button"
-            />
-          </FormButtonWrapper>
-        </form>
+        <SignUpForm />
       </Modal>
     </>
   );
@@ -126,28 +77,6 @@ const SignInUpButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 220px;
-`;
-
-// TODO: Find a better way to create a space between the rows
-const FormRow = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  width: 300px;
-`;
-
-const FormLabel = styled.label`
-  font-size: 1.5em;
-`;
-
-const FormInput = styled.input`
-  font-size: 1.25em;
-  padding: 10px 5px;
-`;
-
-const FormButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 export default UserAuthentication;
