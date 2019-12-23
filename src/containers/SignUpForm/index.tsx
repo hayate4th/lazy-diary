@@ -24,7 +24,7 @@ const SignUpForm: React.FC = () => {
 
   return (
     <SignUpFormComponent
-      submitButtonIsDisabled={formik.isSubmitting}
+      submitButtonIsDisabled={formik.isSubmitting || submitButtonIsDisabled}
       formValues={formik.values}
       handleSubmit={formik.handleSubmit}
       inputChangeHandler={inputChangeHandler}
