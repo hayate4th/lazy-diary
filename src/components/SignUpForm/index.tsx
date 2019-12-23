@@ -54,7 +54,7 @@ const SignUpForm: React.FC<Props> = ({
       </Row>
       <ButtonWrapper>
         <Button
-          text="Sign Up"
+          text="Submit"
           type="submit"
           disabled={submitButtonIsDisabled}
           dataTestId="submit-button"
