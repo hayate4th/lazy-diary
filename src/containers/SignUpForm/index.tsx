@@ -10,8 +10,8 @@ const SignUpForm: React.FC = () => {
       password: "",
       confirmationPassword: ""
     },
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: (values, { setSubmitting }) => {
+      setSubmitting(false);
     }
   });
 
@@ -24,7 +24,7 @@ const SignUpForm: React.FC = () => {
 
   return (
     <SignUpFormComponent
-      submitButtonIsDisabled={false}
+      submitButtonIsDisabled={formik.isSubmitting}
       formValues={formik.values}
       handleSubmit={formik.handleSubmit}
       inputChangeHandler={inputChangeHandler}
