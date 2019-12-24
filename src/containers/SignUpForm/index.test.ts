@@ -1,7 +1,7 @@
 import { SignUpFormData } from "../../types/SignUpForm";
 import { VisibleForTesting } from ".";
 
-describe("SignUpForm", () => {
+describe("SignUpForm/container", () => {
   const { checkIfFieldsAreEmpty } = VisibleForTesting;
   const baseData: SignUpFormData = {
     email: "",
