@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Button from "../Button";
 import SignUpForm from "../../containers/SignUpForm";
+import SignInForm from "../../containers/SignInForm";
 
 Modal.setAppElement("body");
 const modalContentStyle = {
@@ -21,23 +22,31 @@ const modalContentStyle = {
 
 export interface Props {
   isSignedIn: boolean;
+  isSigningIn: boolean;
   isSigningUp: boolean;
   hasSignedUp: boolean;
   signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
   signUpButtonClickHandler: () => void;
-  modalBackgroundClickHandler: () => void;
+  signInModalBackgroundClickHandler: () => void;
+  signUpModalBackgroundClickHandler: () => void;
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSigningIn: React.Dispatch<React.SetStateAction<boolean>>;
   setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserAuthentication: React.FC<Props> = ({
   isSignedIn,
+  isSigningIn,
   isSigningUp,
   hasSignedUp,
   signInButtonClickHandler,
   signOutButtonClickHandler,
   signUpButtonClickHandler,
-  modalBackgroundClickHandler,
+  signInModalBackgroundClickHandler,
+  signUpModalBackgroundClickHandler,
+  setIsSignedIn,
+  setIsSigningIn,
   setHasSignedUp
 }) => {
   return (
@@ -64,8 +73,21 @@ const UserAuthentication: React.FC<Props> = ({
         />
       )}
       <Modal
+        isOpen={isSigningIn}
+        onRequestClose={signInModalBackgroundClickHandler}
+        contentLabel="sign in via email and password"
+        style={modalContentStyle}
+        testId="sign-in-modal"
+      >
+        <SignInForm
+          setIsSignedIn={setIsSignedIn}
+          setIsSigningIn={setIsSigningIn}
+          dataTestId="sign-in-form"
+        />
+      </Modal>
+      <Modal
         isOpen={isSigningUp}
-        onRequestClose={modalBackgroundClickHandler}
+        onRequestClose={signUpModalBackgroundClickHandler}
         contentLabel="sign up via email and password"
         style={modalContentStyle}
         testId="sign-up-modal"
