@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 import UserAuthentication, { Props } from ".";
 
-describe("App", () => {
+describe("UserAuthentication", () => {
   const baseProps: Props = {
     isSignedIn: false,
     isSigningUp: false,
