@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import firebase from "firebase";
 
 import SignUpFormComponent from "../../components/SignUpForm";
 import { SignUpFormData } from "../../types/SignUpForm";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCyy16LnICw-2tGLqtAPbotujq8N58sL-8",
-  authDomain: "lazy-diary.firebaseapp.com",
-  databaseURL: "https://lazy-diary.firebaseio.com",
-  projectId: "lazy-diary",
-  storageBucket: "lazy-diary.appspot.com",
-  messagingSenderId: "126252487591",
-  appId: "1:126252487591:web:1f24a8c20d8481f9cf5c82"
-};
-firebase.initializeApp(firebaseConfig);
+import {
+  firebaseAuth,
+  getFieldNameAndMessageFromError
+} from "../../utils/firebaseAuth";
 
 const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
   const { email, password, confirmationPassword } = fieldValues;
@@ -38,6 +30,7 @@ const checkIfPasswordsAreSame = (
 const SignUpForm: React.FC = () => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
+  // TODO: Cut out onSubmit handler to a different function
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -47,15 +40,19 @@ const SignUpForm: React.FC = () => {
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
       const { email, password, confirmationPassword } = values;
       if (!checkIfPasswordsAreSame(password, confirmationPassword)) {
-        setFieldError("confirmationPassword", "passwords are not the same");
+        setFieldError("confirmationPassword", "Passwords are not the same");
         setSubmitting(false);
         return;
       }
+
       try {
-        await firebase.auth().createUserWithEmailAndPassword(email, password);
+        await firebaseAuth.createUserWithEmailAndPassword(email, "password");
         window.location.reload();
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        const [fieldName, errorMessage] = getFieldNameAndMessageFromError(
+          error
+        );
+        setFieldError(fieldName, errorMessage);
         setSubmitting(false);
       }
     }

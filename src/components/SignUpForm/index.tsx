@@ -34,6 +34,11 @@ const SignUpForm: React.FC<Props> = ({
           onChange={event => inputChangeHandler(event, "email")}
           value={formValues.email}
         />
+        {formErrors.email && (
+          <ErrorMessage data-testid="email-error">
+            {formErrors.email}
+          </ErrorMessage>
+        )}
       </Row>
       <Row>
         <Label htmlFor="password">Password</Label>
@@ -44,6 +49,11 @@ const SignUpForm: React.FC<Props> = ({
           onChange={event => inputChangeHandler(event, "password")}
           value={formValues.password}
         />
+        {formErrors.password && (
+          <ErrorMessage data-testid="password-error">
+            {formErrors.password}
+          </ErrorMessage>
+        )}
       </Row>
       <Row>
         <Label htmlFor="confirmPassword">Confirm Password</Label>
