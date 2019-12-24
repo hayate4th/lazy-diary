@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
+import firebase from "firebase";
 
 import SignUpFormComponent from "../../components/SignUpForm";
 import { SignUpFormData } from "../../types/SignUpForm";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCyy16LnICw-2tGLqtAPbotujq8N58sL-8",
+  authDomain: "lazy-diary.firebaseapp.com",
+  databaseURL: "https://lazy-diary.firebaseio.com",
+  projectId: "lazy-diary",
+  storageBucket: "lazy-diary.appspot.com",
+  messagingSenderId: "126252487591",
+  appId: "1:126252487591:web:1f24a8c20d8481f9cf5c82"
+};
+firebase.initializeApp(firebaseConfig);
 
 const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
   const { email, password, confirmationPassword } = fieldValues;
@@ -32,13 +44,20 @@ const SignUpForm: React.FC = () => {
       password: "",
       confirmationPassword: ""
     },
-    onSubmit: (values, { setSubmitting, setFieldError }) => {
-      if (
-        !checkIfPasswordsAreSame(values.password, values.confirmationPassword)
-      ) {
+    onSubmit: async (values, { setSubmitting, setFieldError }) => {
+      const { email, password, confirmationPassword } = values;
+      if (!checkIfPasswordsAreSame(password, confirmationPassword)) {
         setFieldError("confirmationPassword", "passwords are not the same");
+        setSubmitting(false);
+        return;
       }
-      setSubmitting(false);
+      try {
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
+        window.location.reload();
+      } catch (e) {
+        console.log(e);
+        setSubmitting(false);
+      }
     }
   });
 
