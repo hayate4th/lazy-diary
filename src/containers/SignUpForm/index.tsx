@@ -9,6 +9,7 @@ import {
 } from "../../utils/firebaseAuth";
 
 interface Props {
+  dataTestId: string;
   setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -31,7 +32,7 @@ const checkIfPasswordsAreSame = (
   return password === confirmationPassword;
 };
 
-const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
+const SignUpForm: React.FC<Props> = ({ dataTestId, setHasSignedUp }) => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
   // TODO: Cut out onSubmit handler to a different function
@@ -82,9 +83,10 @@ const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
     <SignUpFormComponent
       submitButtonIsDisabled={formik.isSubmitting || submitButtonIsDisabled}
       formValues={formik.values}
+      dataTestId={dataTestId}
+      formErrors={formik.errors}
       handleSubmit={formik.handleSubmit}
       inputChangeHandler={inputChangeHandler}
-      formErrors={formik.errors}
     />
   );
 };

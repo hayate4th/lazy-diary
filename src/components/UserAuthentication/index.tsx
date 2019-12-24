@@ -71,14 +71,19 @@ const UserAuthentication: React.FC<Props> = ({
         testId="sign-up-modal"
       >
         {hasSignedUp && (
-          <VerifyWrapper>
+          <VerifyWrapper data-testid="verify-email">
             <VerifyTitle>Please verify your email address</VerifyTitle>
             <VerifyInstruction>
               An email containing a verification link was sent.
             </VerifyInstruction>
           </VerifyWrapper>
         )}
-        {!hasSignedUp && <SignUpForm setHasSignedUp={setHasSignedUp} />}
+        {!hasSignedUp && (
+          <SignUpForm
+            setHasSignedUp={setHasSignedUp}
+            dataTestId="sign-up-form"
+          />
+        )}
       </Modal>
     </>
   );
