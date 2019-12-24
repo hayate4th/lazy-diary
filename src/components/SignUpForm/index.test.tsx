@@ -16,7 +16,35 @@ describe("SignUpForm/component", () => {
     inputChangeHandler: jest.fn()
   };
 
-  it("ErrorMessage exists when formErrors.confirmationPassword is not undefined", () => {
+  it("ErrorMessage for email exists when formErrors.email is not undefined", () => {
+    const props: Props = {
+      ...baseProps,
+      formErrors: {
+        ...baseProps.formErrors,
+        email: "TEST"
+      }
+    };
+
+    const { getByTestId } = render(<SignUpForm {...props} />);
+
+    expect(getByTestId(/sign-up-form-email-error/i)).toBeTruthy();
+  });
+
+  it("ErrorMessage for password exists when formErrors.password is not undefined", () => {
+    const props: Props = {
+      ...baseProps,
+      formErrors: {
+        ...baseProps.formErrors,
+        password: "TEST"
+      }
+    };
+
+    const { getByTestId } = render(<SignUpForm {...props} />);
+
+    expect(getByTestId(/sign-up-form-password-error/i)).toBeTruthy();
+  });
+
+  it("ErrorMessage for confirmationPassword exists when formErrors.confirmationPassword is not undefined", () => {
     const props: Props = {
       ...baseProps,
       formErrors: {
@@ -27,6 +55,8 @@ describe("SignUpForm/component", () => {
 
     const { getByTestId } = render(<SignUpForm {...props} />);
 
-    expect(getByTestId(/confirmation-password-error/i)).toBeTruthy();
+    expect(
+      getByTestId(/sign-up-form-confirmation-password-error/i)
+    ).toBeTruthy();
   });
 });

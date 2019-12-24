@@ -37,7 +37,7 @@ const SignUpForm: React.FC<Props> = ({
           value={formValues.email}
         />
         {formErrors.email && (
-          <ErrorMessage data-testid="email-error">
+          <ErrorMessage data-testid="sign-up-form-email-error">
             {formErrors.email}
           </ErrorMessage>
         )}
@@ -52,7 +52,7 @@ const SignUpForm: React.FC<Props> = ({
           value={formValues.password}
         />
         {formErrors.password && (
-          <ErrorMessage data-testid="password-error">
+          <ErrorMessage data-testid="sign-up-form-password-error">
             {formErrors.password}
           </ErrorMessage>
         )}
@@ -67,7 +67,7 @@ const SignUpForm: React.FC<Props> = ({
           value={formValues.confirmationPassword}
         />
         {formErrors.confirmationPassword && (
-          <ErrorMessage data-testid="confirmation-password-error">
+          <ErrorMessage data-testid="sign-up-form-confirmation-password-error">
             {formErrors.confirmationPassword}
           </ErrorMessage>
         )}
@@ -77,7 +77,7 @@ const SignUpForm: React.FC<Props> = ({
           text="Submit"
           type="submit"
           disabled={submitButtonIsDisabled}
-          dataTestId="submit-button"
+          dataTestId="sign-up-form-submit-button"
         />
       </ButtonWrapper>
     </form>
