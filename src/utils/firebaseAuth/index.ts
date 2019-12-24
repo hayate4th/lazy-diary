@@ -19,9 +19,11 @@ export const getFieldNameAndMessageFromError = (error: FirebaseError) => {
   switch (error.code) {
     case "auth/email-already-in-use":
     case "auth/invalid-email":
+    case "auth/user-not-found":
       fieldName = "email";
       break;
     case "auth/weak-password":
+    case "auth/wrong-password":
       fieldName = "password";
       break;
   }
