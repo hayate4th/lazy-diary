@@ -61,7 +61,7 @@ describe("UserAuthentication", () => {
       expect(queryByTestId(/sign-up-modal/i)).toBeNull();
     });
 
-    it("Sign in/up modal exists when isSigningUp is true", () => {
+    it("Sign up modal exists when isSigningUp is true", () => {
       const props: Props = {
         ...baseProps,
         isSigningUp: true
@@ -83,7 +83,7 @@ describe("UserAuthentication", () => {
         <UserAuthentication {...props} />
       );
 
-      expect(getByTestId(/sign-up-form/i)).toBeTruthy();
+      expect(getByTestId("sign-up-form")).toBeTruthy();
       expect(queryByTestId(/verify-email/i)).toBeNull();
     });
 
@@ -99,7 +99,7 @@ describe("UserAuthentication", () => {
       );
 
       expect(getByTestId(/verify-email/i)).toBeTruthy();
-      expect(queryByTestId(/sign-up-form/i)).toBeNull();
+      expect(queryByTestId("sign-up-form")).toBeNull();
     });
   });
 });
