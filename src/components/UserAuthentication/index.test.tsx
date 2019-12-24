@@ -49,8 +49,32 @@ describe("UserAuthentication", () => {
     expect(queryByTestId(/sign-up-button/i)).toBeNull();
   });
 
-  describe("Sign in/up modal", () => {
-    it("Sign in/up modal does not exist when isSigningUp is false", () => {
+  describe("Sign in modal", () => {
+    it("Sign in modal does not exist when isSigningIn is false", () => {
+      const props: Props = {
+        ...baseProps,
+        isSigningIn: false
+      };
+
+      const { queryByTestId } = render(<UserAuthentication {...props} />);
+
+      expect(queryByTestId(/sign-in-modal/i)).toBeNull();
+    });
+
+    it("Sign in modal exists when isSigningIn is true", () => {
+      const props: Props = {
+        ...baseProps,
+        isSigningIn: true
+      };
+
+      const { getByTestId } = render(<UserAuthentication {...props} />);
+
+      expect(getByTestId(/sign-in-modal/i)).toBeTruthy();
+    });
+  });
+
+  describe("Sign up modal", () => {
+    it("Sign up modal does not exist when isSigningUp is false", () => {
       const props: Props = {
         ...baseProps,
         isSigningUp: false
