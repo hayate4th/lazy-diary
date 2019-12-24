@@ -60,9 +60,7 @@ describe("UserAuthentication", () => {
       isSigningUp: true
     };
 
-    const { getByTestId, queryByTestId } = render(
-      <UserAuthentication {...props} />
-    );
+    const { getByTestId } = render(<UserAuthentication {...props} />);
 
     expect(getByTestId(/sign-up-modal/i)).toBeTruthy();
   });
