@@ -3,6 +3,10 @@ import { useFormik } from "formik";
 
 import SignUpFormComponent from "../../components/SignUpForm";
 import { SignUpFormData } from "../../types/SignUpForm";
+import {
+  firebaseAuth,
+  getFieldNameAndMessageFromError
+} from "../../utils/firebaseAuth";
 
 const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
   const { email, password, confirmationPassword } = fieldValues;
@@ -26,19 +30,31 @@ const checkIfPasswordsAreSame = (
 const SignUpForm: React.FC = () => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
+  // TODO: Cut out onSubmit handler to a different function
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       confirmationPassword: ""
     },
-    onSubmit: (values, { setSubmitting, setFieldError }) => {
-      if (
-        !checkIfPasswordsAreSame(values.password, values.confirmationPassword)
-      ) {
-        setFieldError("confirmationPassword", "passwords are not the same");
+    onSubmit: async (values, { setSubmitting, setFieldError }) => {
+      const { email, password, confirmationPassword } = values;
+      if (!checkIfPasswordsAreSame(password, confirmationPassword)) {
+        setFieldError("confirmationPassword", "Passwords are not the same");
+        setSubmitting(false);
+        return;
       }
-      setSubmitting(false);
+
+      try {
+        await firebaseAuth.createUserWithEmailAndPassword(email, "password");
+        window.location.reload();
+      } catch (error) {
+        const [fieldName, errorMessage] = getFieldNameAndMessageFromError(
+          error
+        );
+        setFieldError(fieldName, errorMessage);
+        setSubmitting(false);
+      }
     }
   });
 
