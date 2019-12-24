@@ -15,12 +15,12 @@ const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
 
 const checkIfPasswordsAreSame = (
   password: string,
-  configurationPassword: string
+  confirmationPassword: string
 ) => {
   // Should not be true if either of them are empty strings
   // If either of them are empty checkIfFieldsAreEmpty should disable submit button, but in case
-  if (password === "" || configurationPassword === "") return false;
-  return password === configurationPassword;
+  if (password === "" || confirmationPassword === "") return false;
+  return password === confirmationPassword;
 };
 
 const SignUpForm: React.FC = () => {
@@ -66,7 +66,8 @@ const SignUpForm: React.FC = () => {
 };
 
 export const VisibleForTesting = {
-  checkIfFieldsAreEmpty
+  checkIfFieldsAreEmpty,
+  checkIfPasswordsAreSame
 };
 
 export default SignUpForm;
