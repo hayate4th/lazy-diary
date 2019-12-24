@@ -8,7 +8,6 @@ import { SignInFormData } from "../../types/SignInForm";
 export interface Props {
   signInButtonIsDisabled: boolean;
   formValues: SignInFormData;
-  dataTestId?: string;
   formErrors: FormikErrors<SignInFormData>;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   inputChangeHandler: (
@@ -20,13 +19,12 @@ export interface Props {
 const SignInForm: React.FC<Props> = ({
   signInButtonIsDisabled,
   formValues,
-  dataTestId,
   formErrors,
   handleSubmit,
   inputChangeHandler
 }) => {
   return (
-    <form onSubmit={handleSubmit} data-testid={dataTestId}>
+    <form onSubmit={handleSubmit} data-testid="sign-in-form">
       <Row>
         <Label htmlFor="email">Email Address</Label>
         <Input

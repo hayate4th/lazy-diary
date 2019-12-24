@@ -82,7 +82,6 @@ const UserAuthentication: React.FC<Props> = ({
         <SignInForm
           setIsSignedIn={setIsSignedIn}
           setIsSigningIn={setIsSigningIn}
-          dataTestId="sign-in-form"
         />
       </Modal>
       <Modal
@@ -100,12 +99,7 @@ const UserAuthentication: React.FC<Props> = ({
             </VerifyInstruction>
           </VerifyWrapper>
         )}
-        {!hasSignedUp && (
-          <SignUpForm
-            setHasSignedUp={setHasSignedUp}
-            dataTestId="sign-up-form"
-          />
-        )}
+        {!hasSignedUp && <SignUpForm setHasSignedUp={setHasSignedUp} />}
       </Modal>
     </>
   );
