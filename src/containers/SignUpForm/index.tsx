@@ -28,7 +28,6 @@ const SignUpForm: React.FC = () => {
   });
 
   // TODO: Is this correct?
-  // TODO: Can this be a custom hook?
   useEffect(() => {
     setSubmitButtonIsDisabled(checkIfFieldsAreEmpty(formik.values));
   }, [formik.values]);
