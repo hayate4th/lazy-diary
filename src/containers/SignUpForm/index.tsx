@@ -13,6 +13,16 @@ const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
   );
 };
 
+const checkIfPasswordsAreSame = (
+  password: string,
+  configurationPassword: string
+) => {
+  // Should not be true if either of them are empty strings
+  // If either of them are empty checkIfFieldsAreEmpty should disable submit button, but in case
+  if (password === "" || configurationPassword === "") return false;
+  return password === configurationPassword;
+};
+
 const SignUpForm: React.FC = () => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
@@ -22,7 +32,12 @@ const SignUpForm: React.FC = () => {
       password: "",
       confirmationPassword: ""
     },
-    onSubmit: (values, { setSubmitting }) => {
+    onSubmit: (values, { setSubmitting, setFieldError }) => {
+      if (
+        !checkIfPasswordsAreSame(values.password, values.confirmationPassword)
+      ) {
+        setFieldError("confirmationPassword", "passwords are not the same");
+      }
       setSubmitting(false);
     }
   });
@@ -45,6 +60,7 @@ const SignUpForm: React.FC = () => {
       formValues={formik.values}
       handleSubmit={formik.handleSubmit}
       inputChangeHandler={inputChangeHandler}
+      formErrors={formik.errors}
     />
   );
 };
