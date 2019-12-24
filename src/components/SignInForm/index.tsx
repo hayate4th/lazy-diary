@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { FormikErrors } from "formik";
 
 import Button from "../Button";
-import { SignUpFormData } from "../../types/SignUpForm";
+import { SignInFormData } from "../../types/SignInForm";
 
 export interface Props {
-  submitButtonIsDisabled: boolean;
-  formValues: SignUpFormData;
-  formErrors: FormikErrors<SignUpFormData>;
+  signInButtonIsDisabled: boolean;
+  formValues: SignInFormData;
+  formErrors: FormikErrors<SignInFormData>;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   inputChangeHandler: (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -16,15 +16,15 @@ export interface Props {
   ) => void;
 }
 
-const SignUpForm: React.FC<Props> = ({
-  submitButtonIsDisabled,
+const SignInForm: React.FC<Props> = ({
+  signInButtonIsDisabled,
   formValues,
   formErrors,
   handleSubmit,
   inputChangeHandler
 }) => {
   return (
-    <form onSubmit={handleSubmit} data-testid="sign-up-form">
+    <form onSubmit={handleSubmit} data-testid="sign-in-form">
       <Row>
         <Label htmlFor="email">Email Address</Label>
         <Input
@@ -35,7 +35,7 @@ const SignUpForm: React.FC<Props> = ({
           value={formValues.email}
         />
         {formErrors.email && (
-          <ErrorMessage data-testid="sign-up-form-email-error">
+          <ErrorMessage data-testid="sign-in-form-email-error">
             {formErrors.email}
           </ErrorMessage>
         )}
@@ -50,32 +50,17 @@ const SignUpForm: React.FC<Props> = ({
           value={formValues.password}
         />
         {formErrors.password && (
-          <ErrorMessage data-testid="sign-up-form-password-error">
+          <ErrorMessage data-testid="sign-in-form-password-error">
             {formErrors.password}
-          </ErrorMessage>
-        )}
-      </Row>
-      <Row>
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Input
-          id="confirmationPassword"
-          name="confirmationPassword"
-          type="password"
-          onChange={event => inputChangeHandler(event, "confirmationPassword")}
-          value={formValues.confirmationPassword}
-        />
-        {formErrors.confirmationPassword && (
-          <ErrorMessage data-testid="sign-up-form-confirmation-password-error">
-            {formErrors.confirmationPassword}
           </ErrorMessage>
         )}
       </Row>
       <ButtonWrapper>
         <Button
-          text="Submit"
+          text="Sign in"
           type="submit"
-          disabled={submitButtonIsDisabled}
-          dataTestId="sign-up-form-submit-button"
+          disabled={signInButtonIsDisabled}
+          dataTestId="sign-in-form-sign-in-button"
         />
       </ButtonWrapper>
     </form>
@@ -109,4 +94,4 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-export default SignUpForm;
+export default SignInForm;

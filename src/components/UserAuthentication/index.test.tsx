@@ -6,12 +6,16 @@ import UserAuthentication, { Props } from ".";
 describe("UserAuthentication", () => {
   const baseProps: Props = {
     isSignedIn: false,
+    isSigningIn: false,
     isSigningUp: false,
     hasSignedUp: false,
     signInButtonClickHandler: jest.fn(),
     signOutButtonClickHandler: jest.fn(),
     signUpButtonClickHandler: jest.fn(),
-    modalBackgroundClickHandler: jest.fn(),
+    signInModalBackgroundClickHandler: jest.fn(),
+    signUpModalBackgroundClickHandler: jest.fn(),
+    setIsSignedIn: jest.fn(),
+    setIsSigningIn: jest.fn(),
     setHasSignedUp: jest.fn()
   };
 
@@ -45,6 +49,30 @@ describe("UserAuthentication", () => {
     expect(queryByTestId(/sign-up-button/i)).toBeNull();
   });
 
+  describe("Sign in modal", () => {
+    it("Sign in modal does not exist when isSigningIn is false", () => {
+      const props: Props = {
+        ...baseProps,
+        isSigningIn: false
+      };
+
+      const { queryByTestId } = render(<UserAuthentication {...props} />);
+
+      expect(queryByTestId(/sign-in-modal/i)).toBeNull();
+    });
+
+    it("Sign in modal exists when isSigningIn is true", () => {
+      const props: Props = {
+        ...baseProps,
+        isSigningIn: true
+      };
+
+      const { getByTestId } = render(<UserAuthentication {...props} />);
+
+      expect(getByTestId(/sign-in-modal/i)).toBeTruthy();
+    });
+  });
+
   describe("Sign up modal", () => {
     it("Sign up modal does not exist when isSigningUp is false", () => {
       const props: Props = {
@@ -68,7 +96,7 @@ describe("UserAuthentication", () => {
       expect(getByTestId(/sign-up-modal/i)).toBeTruthy();
     });
 
-    it("SignUpForm exists and Verify email text does not when hasSignedUp is false", () => {
+    it("Sign up form exists and verify email text does not when hasSignedUp is false", () => {
       const props: Props = {
         ...baseProps,
         isSigningUp: true,
@@ -79,11 +107,11 @@ describe("UserAuthentication", () => {
         <UserAuthentication {...props} />
       );
 
-      expect(getByTestId(/sign-up-form/i)).toBeTruthy();
+      expect(getByTestId("sign-up-form")).toBeTruthy();
       expect(queryByTestId(/verify-email/i)).toBeNull();
     });
 
-    it("SignUpForm does not exist and Verify email text does when hasSignedUp is true", () => {
+    it("Sign up form does not exist and verify email text does when hasSignedUp is true", () => {
       const props: Props = {
         ...baseProps,
         isSigningUp: true,
@@ -95,7 +123,7 @@ describe("UserAuthentication", () => {
       );
 
       expect(getByTestId(/verify-email/i)).toBeTruthy();
-      expect(queryByTestId(/sign-up-form/i)).toBeNull();
+      expect(queryByTestId("sign-up-form")).toBeNull();
     });
   });
 });
