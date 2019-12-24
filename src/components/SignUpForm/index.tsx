@@ -8,7 +8,7 @@ import { SignUpFormData } from "../../types/SignUpForm";
 export interface Props {
   submitButtonIsDisabled: boolean;
   formValues: SignUpFormData;
-  dataTestId: string;
+  dataTestId?: string;
   formErrors: FormikErrors<SignUpFormData>;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   inputChangeHandler: (
