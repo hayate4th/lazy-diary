@@ -22,19 +22,23 @@ const modalContentStyle = {
 export interface Props {
   isSignedIn: boolean;
   isSigningUp: boolean;
+  hasSignedUp: boolean;
   signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
   signUpButtonClickHandler: () => void;
   modalBackgroundClickHandler: () => void;
+  setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserAuthentication: React.FC<Props> = ({
   isSignedIn,
   isSigningUp,
+  hasSignedUp,
   signInButtonClickHandler,
   signOutButtonClickHandler,
   signUpButtonClickHandler,
-  modalBackgroundClickHandler
+  modalBackgroundClickHandler,
+  setHasSignedUp
 }) => {
   return (
     <>
@@ -66,7 +70,20 @@ const UserAuthentication: React.FC<Props> = ({
         style={modalContentStyle}
         testId="sign-up-modal"
       >
-        <SignUpForm />
+        {hasSignedUp && (
+          <VerifyWrapper data-testid="verify-email">
+            <VerifyTitle>Please verify your email address</VerifyTitle>
+            <VerifyInstruction>
+              An email containing a verification link was sent.
+            </VerifyInstruction>
+          </VerifyWrapper>
+        )}
+        {!hasSignedUp && (
+          <SignUpForm
+            setHasSignedUp={setHasSignedUp}
+            dataTestId="sign-up-form"
+          />
+        )}
       </Modal>
     </>
   );
@@ -77,6 +94,19 @@ const SignInUpButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 220px;
+`;
+
+const VerifyWrapper = styled.div`
+  text-align: center;
+`;
+
+const VerifyTitle = styled.div`
+  font-size: 2em;
+  font-weight: bold;
+`;
+
+const VerifyInstruction = styled.span`
+  font-size: 1.5em;
 `;
 
 export default UserAuthentication;

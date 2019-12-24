@@ -8,6 +8,11 @@ import {
   getFieldNameAndMessageFromError
 } from "../../utils/firebaseAuth";
 
+interface Props {
+  dataTestId: string;
+  setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
   const { email, password, confirmationPassword } = fieldValues;
   return (
@@ -27,7 +32,7 @@ const checkIfPasswordsAreSame = (
   return password === confirmationPassword;
 };
 
-const SignUpForm: React.FC = () => {
+const SignUpForm: React.FC<Props> = ({ dataTestId, setHasSignedUp }) => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
   // TODO: Cut out onSubmit handler to a different function
@@ -46,8 +51,12 @@ const SignUpForm: React.FC = () => {
       }
 
       try {
-        await firebaseAuth.createUserWithEmailAndPassword(email, "password");
-        window.location.reload();
+        const { user } = await firebaseAuth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+        await user?.sendEmailVerification();
+        setHasSignedUp(true);
       } catch (error) {
         const [fieldName, errorMessage] = getFieldNameAndMessageFromError(
           error
@@ -74,9 +83,10 @@ const SignUpForm: React.FC = () => {
     <SignUpFormComponent
       submitButtonIsDisabled={formik.isSubmitting || submitButtonIsDisabled}
       formValues={formik.values}
+      dataTestId={dataTestId}
+      formErrors={formik.errors}
       handleSubmit={formik.handleSubmit}
       inputChangeHandler={inputChangeHandler}
-      formErrors={formik.errors}
     />
   );
 };
