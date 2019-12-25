@@ -1,13 +1,7 @@
-import { UserAuthenticationData } from "../../types/UserAuthentication";
 import { VisibleForTesting } from ".";
 
 describe("SignUpForm/container", () => {
   const { checkIfPasswordsAreSame } = VisibleForTesting;
-  const baseData: UserAuthenticationData = {
-    email: "",
-    password: "",
-    confirmationPassword: ""
-  };
 
   it("checkIfPasswordsAreSame returns false when passwords are not the same", () => {
     expect(checkIfPasswordsAreSame("TEST1", "TEST2")).toBeFalsy();
