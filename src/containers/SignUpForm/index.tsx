@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import SignUpFormComponent from "../../components/SignUpForm";
-import { SignUpFormData } from "../../types/UserAuthenticationForm";
+import { SignUpFormData } from "../../types/UserAuthentication";
 import {
   firebaseAuth,
   getFieldNameAndMessageFromError

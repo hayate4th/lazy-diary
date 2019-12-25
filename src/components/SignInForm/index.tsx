@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { FormikErrors } from "formik";
 
 import Button from "../Button";
-import { UserAuthenticationFormData } from "../../types/UserAuthenticationForm";
+import { UserAuthenticationData } from "../../types/UserAuthentication";
 
 export interface Props {
   signInButtonIsDisabled: boolean;
-  formValues: UserAuthenticationFormData;
-  formErrors: FormikErrors<UserAuthenticationFormData>;
+  formValues: UserAuthenticationData;
+  formErrors: FormikErrors<UserAuthenticationData>;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   inputChangeHandler: (
     event: React.ChangeEvent<HTMLInputElement>,

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FormikErrors } from "formik";
 
 import Button from "../Button";
-import { SignUpFormData } from "../../types/UserAuthenticationForm";
+import { SignUpFormData } from "../../types/UserAuthentication";
 
 export interface Props {
   submitButtonIsDisabled: boolean;
