@@ -17,36 +17,40 @@ interface Props {
 const SignInForm: React.FC<Props> = ({ setIsSignedIn, setIsSigningIn }) => {
   const [signInButtonIsDisabled, setSignInButtonIsDisabled] = useState(false);
 
-  // TODO: Cut out onSubmit handler to a different function
+  const onSubmitHandler = async (
+    values: UserAuthenticationData,
+    setSubmitting: (isSubmitting: boolean) => void,
+    setFieldError: (field: string, message: string) => void
+  ) => {
+    const { email, password } = values;
+    try {
+      const { user } = await firebaseAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+      if (!user?.emailVerified) {
+        setFieldError("email", "Email is not verified");
+        setSubmitting(false);
+        return;
+      }
+
+      setIsSignedIn(true);
+      setIsSigningIn(false);
+    } catch (error) {
+      const [fieldName, errorMessage] = getFieldNameAndMessageFromError(error);
+      setFieldError(fieldName, errorMessage);
+      setSubmitting(false);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: ""
     },
-    onSubmit: async (values, { setSubmitting, setFieldError }) => {
-      const { email, password } = values;
-      try {
-        const { user } = await firebaseAuth.signInWithEmailAndPassword(
-          email,
-          password
-        );
-
-        if (!user?.emailVerified) {
-          setFieldError("email", "Email is not verified");
-          setSubmitting(false);
-          return;
-        }
-
-        setIsSignedIn(true);
-        setIsSigningIn(false);
-      } catch (error) {
-        const [fieldName, errorMessage] = getFieldNameAndMessageFromError(
-          error
-        );
-        setFieldError(fieldName, errorMessage);
-        setSubmitting(false);
-      }
-    }
+    onSubmit: async (values, { setSubmitting, setFieldError }) =>
+      onSubmitHandler(values, setSubmitting, setFieldError)
   });
 
   // TODO: Is this correct?

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-// TODO: Change type to
+// TODO: Limit type property
 export interface Props {
   name: string;
   text: string;
