@@ -1,9 +1,9 @@
-import { SignInFormData } from "../../types/SignInForm";
+import { UserAuthenticationData } from "../../types/UserAuthentication";
 import { VisibleForTesting } from ".";
 
 describe("SignUpForm/container", () => {
   const { checkIfFieldsAreEmpty } = VisibleForTesting;
-  const baseData: SignInFormData = {
+  const baseData: UserAuthenticationData = {
     email: "",
     password: ""
   };

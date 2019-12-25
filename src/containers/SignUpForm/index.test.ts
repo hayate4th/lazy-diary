@@ -1,4 +1,4 @@
-import { SignUpFormData } from "../../types/SignUpForm";
+import { SignUpFormData } from "../../types/UserAuthentication";
 import { VisibleForTesting } from ".";
 
 describe("SignUpForm/container", () => {
