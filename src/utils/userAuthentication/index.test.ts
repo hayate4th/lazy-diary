@@ -18,6 +18,16 @@ describe("userAuthentication", () => {
     ).toBeTruthy();
   });
 
+  it("checkIfFieldsAreEmpty returns false when all fields (confirmationPassword is undefined) are not empty", () => {
+    expect(
+      checkIfFieldsAreEmpty({
+        ...baseData,
+        email: "TEST",
+        password: "TEST"
+      })
+    ).toBeFalsy();
+  });
+
   it("checkIfFieldsAreEmpty returns false when all fields are not empty", () => {
     expect(
       checkIfFieldsAreEmpty({
