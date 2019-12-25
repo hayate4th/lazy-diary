@@ -2,24 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import SignUpFormComponent from "../../components/SignUpForm";
-import { SignUpFormData } from "../../types/UserAuthentication";
+import { UserAuthenticationData } from "../../types/UserAuthentication";
 import {
   firebaseAuth,
   getFieldNameAndMessageFromError
 } from "../../utils/firebaseAuth";
+import { checkIfFieldsAreEmpty } from "../../utils/userAuthentication";
 
 interface Props {
   setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const checkIfFieldsAreEmpty = (fieldValues: SignUpFormData) => {
-  const { email, password, confirmationPassword } = fieldValues;
-  return (
-    email.length === 0 ||
-    password.length === 0 ||
-    confirmationPassword.length === 0
-  );
-};
 
 const checkIfPasswordsAreSame = (
   password: string,
@@ -35,12 +27,12 @@ const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
   const onSubmitHandler = async (
-    values: SignUpFormData,
+    values: UserAuthenticationData,
     setSubmitting: (isSubmitting: boolean) => void,
     setFieldError: (field: string, message: string) => void
   ) => {
     const { email, password, confirmationPassword } = values;
-    if (!checkIfPasswordsAreSame(password, confirmationPassword)) {
+    if (!checkIfPasswordsAreSame(password, confirmationPassword!)) {
       setFieldError("confirmationPassword", "Passwords are not the same");
       setSubmitting(false);
       return;

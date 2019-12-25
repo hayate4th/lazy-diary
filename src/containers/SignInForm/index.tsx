@@ -7,16 +7,12 @@ import {
   firebaseAuth,
   getFieldNameAndMessageFromError
 } from "../../utils/firebaseAuth";
+import { checkIfFieldsAreEmpty } from "../../utils/userAuthentication";
 
 interface Props {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSigningIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const checkIfFieldsAreEmpty = (fieldValues: UserAuthenticationData) => {
-  const { email, password } = fieldValues;
-  return email.length === 0 || password.length === 0;
-};
 
 const SignInForm: React.FC<Props> = ({ setIsSignedIn, setIsSigningIn }) => {
   const [signInButtonIsDisabled, setSignInButtonIsDisabled] = useState(false);

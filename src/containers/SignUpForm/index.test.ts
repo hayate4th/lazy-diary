@@ -1,9 +1,9 @@
-import { SignUpFormData } from "../../types/UserAuthentication";
+import { UserAuthenticationData } from "../../types/UserAuthentication";
 import { VisibleForTesting } from ".";
 
 describe("SignUpForm/container", () => {
   const { checkIfFieldsAreEmpty, checkIfPasswordsAreSame } = VisibleForTesting;
-  const baseData: SignUpFormData = {
+  const baseData: UserAuthenticationData = {
     email: "",
     password: "",
     confirmationPassword: ""
