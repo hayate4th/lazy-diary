@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Run tsc
           command: npx tsc --noEmit
-  acceptance-test:
+  ts-unit-test:
     docker:
       - image: circleci/node:12.13.1
     steps:
@@ -49,13 +49,13 @@ workflows:
     jobs:
       - check-syntax
       - analyze-tsc
-      - acceptance-test:
+      - ts-unit-test:
           requires:
             - check-syntax
             - analyze-tsc
       - deploy:
           requires:
-            - acceptance-test
+            - ts-unit-test
           filters:
             branches:
               only: master
