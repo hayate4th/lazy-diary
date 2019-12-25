@@ -72,8 +72,4 @@ const SignInForm: React.FC<Props> = ({ setIsSignedIn, setIsSigningIn }) => {
   );
 };
 
-export const VisibleForTesting = {
-  checkIfFieldsAreEmpty
-};
-
 export default SignInForm;

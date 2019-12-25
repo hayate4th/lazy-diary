@@ -86,7 +86,6 @@ const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
 };
 
 export const VisibleForTesting = {
-  checkIfFieldsAreEmpty,
   checkIfPasswordsAreSame
 };
 

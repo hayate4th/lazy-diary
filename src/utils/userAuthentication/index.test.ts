@@ -1,8 +1,7 @@
 import { UserAuthenticationData } from "../../types/UserAuthentication";
-import { VisibleForTesting } from ".";
+import { checkIfFieldsAreEmpty } from ".";
 
-describe("SignUpForm/container", () => {
-  const { checkIfFieldsAreEmpty } = VisibleForTesting;
+describe("userAuthentication", () => {
   const baseData: UserAuthenticationData = {
     email: "",
     password: ""
@@ -14,6 +13,9 @@ describe("SignUpForm/container", () => {
     expect(
       checkIfFieldsAreEmpty({ ...baseData, password: "TEST" })
     ).toBeTruthy();
+    expect(
+      checkIfFieldsAreEmpty({ ...baseData, confirmationPassword: "TEST" })
+    ).toBeTruthy();
   });
 
   it("checkIfFieldsAreEmpty returns false when all fields are not empty", () => {
@@ -21,7 +23,8 @@ describe("SignUpForm/container", () => {
       checkIfFieldsAreEmpty({
         ...baseData,
         email: "TEST",
-        password: "TEST"
+        password: "TEST",
+        confirmationPassword: "TEST"
       })
     ).toBeFalsy();
   });

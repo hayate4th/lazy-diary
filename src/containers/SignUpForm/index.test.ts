@@ -2,34 +2,12 @@ import { UserAuthenticationData } from "../../types/UserAuthentication";
 import { VisibleForTesting } from ".";
 
 describe("SignUpForm/container", () => {
-  const { checkIfFieldsAreEmpty, checkIfPasswordsAreSame } = VisibleForTesting;
+  const { checkIfPasswordsAreSame } = VisibleForTesting;
   const baseData: UserAuthenticationData = {
     email: "",
     password: "",
     confirmationPassword: ""
   };
-
-  it("checkIfFieldsAreEmpty returns true when one or more fields are empty", () => {
-    expect(checkIfFieldsAreEmpty(baseData)).toBeTruthy();
-    expect(checkIfFieldsAreEmpty({ ...baseData, email: "TEST" })).toBeTruthy();
-    expect(
-      checkIfFieldsAreEmpty({ ...baseData, password: "TEST" })
-    ).toBeTruthy();
-    expect(
-      checkIfFieldsAreEmpty({ ...baseData, confirmationPassword: "TEST" })
-    ).toBeTruthy();
-  });
-
-  it("checkIfFieldsAreEmpty returns false when all fields are not empty", () => {
-    expect(
-      checkIfFieldsAreEmpty({
-        ...baseData,
-        email: "TEST",
-        password: "TEST",
-        confirmationPassword: "TEST"
-      })
-    ).toBeFalsy();
-  });
 
   it("checkIfPasswordsAreSame returns false when passwords are not the same", () => {
     expect(checkIfPasswordsAreSame("TEST1", "TEST2")).toBeFalsy();
