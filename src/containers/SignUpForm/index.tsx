@@ -34,36 +34,40 @@ const checkIfPasswordsAreSame = (
 const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
-  // TODO: Cut out onSubmit handler to a different function
+  const onSubmitHandler = async (
+    values: SignUpFormData,
+    setSubmitting: (isSubmitting: boolean) => void,
+    setFieldError: (field: string, message: string) => void
+  ) => {
+    const { email, password, confirmationPassword } = values;
+    if (!checkIfPasswordsAreSame(password, confirmationPassword)) {
+      setFieldError("confirmationPassword", "Passwords are not the same");
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      const { user } = await firebaseAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await user?.sendEmailVerification();
+      setHasSignedUp(true);
+    } catch (error) {
+      const [fieldName, errorMessage] = getFieldNameAndMessageFromError(error);
+      setFieldError(fieldName, errorMessage);
+      setSubmitting(false);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       confirmationPassword: ""
     },
-    onSubmit: async (values, { setSubmitting, setFieldError }) => {
-      const { email, password, confirmationPassword } = values;
-      if (!checkIfPasswordsAreSame(password, confirmationPassword)) {
-        setFieldError("confirmationPassword", "Passwords are not the same");
-        setSubmitting(false);
-        return;
-      }
-
-      try {
-        const { user } = await firebaseAuth.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-        await user?.sendEmailVerification();
-        setHasSignedUp(true);
-      } catch (error) {
-        const [fieldName, errorMessage] = getFieldNameAndMessageFromError(
-          error
-        );
-        setFieldError(fieldName, errorMessage);
-        setSubmitting(false);
-      }
-    }
+    onSubmit: (values, { setSubmitting, setFieldError }) =>
+      onSubmitHandler(values, setSubmitting, setFieldError)
   });
 
   // TODO: Is this correct?
