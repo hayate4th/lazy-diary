@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import SignInFormComponent from "../../components/SignInForm";
-import { SignInFormData } from "../../types/SignInForm";
+import { UserAuthenticationFormData } from "../../types/UserAuthenticationForm";
 import {
   firebaseAuth,
   getFieldNameAndMessageFromError
@@ -13,7 +13,7 @@ interface Props {
   setIsSigningIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const checkIfFieldsAreEmpty = (fieldValues: SignInFormData) => {
+const checkIfFieldsAreEmpty = (fieldValues: UserAuthenticationFormData) => {
   const { email, password } = fieldValues;
   return email.length === 0 || password.length === 0;
 };
