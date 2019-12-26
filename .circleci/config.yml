@@ -33,7 +33,18 @@ jobs:
           command: npm ci
       - run:
           name: Run test
-          command: npm test -- --verbose
+          command: npm test -- --config jest.unit.config.js --verbose
+  ts-integration-test:
+    docker:
+      - image: circleci/node:12.13.1
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run test
+          command: npm test -- --config jest.integration.config.js --verbose
   deploy:
     docker:
       - image: buildpack-deps:trusty
@@ -53,9 +64,12 @@ workflows:
           requires:
             - check-syntax
             - analyze-tsc
-      - deploy:
+      - ts-integration-test:
           requires:
             - ts-unit-test
+      - deploy:
+          requires:
+            - ts-integration-test
           filters:
             branches:
               only: master
