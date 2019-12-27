@@ -23,9 +23,6 @@ const modalContentStyle = {
 
 export interface Props {
   authenticationState: AuthenticationState;
-  signInButtonClickHandler: () => void;
-  signUpButtonClickHandler: () => void;
-  signOutHandler: () => void;
   setAuthenticationState: React.Dispatch<
     React.SetStateAction<AuthenticationState>
   >;
@@ -33,27 +30,21 @@ export interface Props {
 
 const UserAuthentication: React.FC<Props> = ({
   authenticationState,
-  signInButtonClickHandler,
-  signUpButtonClickHandler,
-  signOutHandler,
   setAuthenticationState
 }) => {
   return (
     <>
-      {(authenticationState === "SIGNED_OUT" ||
-        authenticationState === "SIGNING_IN" ||
-        authenticationState === "SIGNING_UP" ||
-        authenticationState === "SIGNED_UP") && (
+      {authenticationState !== "SIGNED_IN" && (
         <SignInUpButtonWrapper>
           <Button
             text="Sign In"
             dataTestId="sign-in-button"
-            onClickHandler={signInButtonClickHandler}
+            onClickHandler={() => setAuthenticationState("SIGNING_IN")}
           />
           <Button
             text="Sign Up"
             dataTestId="sign-up-button"
-            onClickHandler={signUpButtonClickHandler}
+            onClickHandler={() => setAuthenticationState("SIGNING_UP")}
           />
         </SignInUpButtonWrapper>
       )}
@@ -61,12 +52,12 @@ const UserAuthentication: React.FC<Props> = ({
         <Button
           text="Sign Out"
           dataTestId="sign-out-button"
-          onClickHandler={signOutHandler}
+          onClickHandler={() => setAuthenticationState("SIGNED_OUT")}
         />
       )}
       <Modal
         isOpen={authenticationState === "SIGNING_IN"}
-        onRequestClose={signOutHandler}
+        onRequestClose={() => setAuthenticationState("SIGNED_OUT")}
         contentLabel="sign in via email and password"
         style={modalContentStyle}
         testId="sign-in-modal"
@@ -78,7 +69,7 @@ const UserAuthentication: React.FC<Props> = ({
           authenticationState === "SIGNING_UP" ||
           authenticationState === "SIGNED_UP"
         }
-        onRequestClose={signOutHandler}
+        onRequestClose={() => setAuthenticationState("SIGNED_OUT")}
         contentLabel="sign up via email and password"
         style={modalContentStyle}
         testId="sign-up-modal"

@@ -8,16 +8,9 @@ const UserAuthentication: React.FC = () => {
     AuthenticationState
   >("SIGNED_OUT");
 
-  const signInButtonClickHandler = () => setAuthenticationState("SIGNING_IN");
-  const signOutHandler = () => setAuthenticationState("SIGNED_OUT");
-  const signUpButtonClickHandler = () => setAuthenticationState("SIGNING_UP");
-
   return (
     <UserAuthenticationComponent
       authenticationState={authenticationState}
-      signInButtonClickHandler={signInButtonClickHandler}
-      signUpButtonClickHandler={signUpButtonClickHandler}
-      signOutHandler={signOutHandler}
       setAuthenticationState={setAuthenticationState}
     />
   );
