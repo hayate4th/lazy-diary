@@ -24,10 +24,8 @@ const modalContentStyle = {
 export interface Props {
   authenticationState: AuthenticationState;
   signInButtonClickHandler: () => void;
-  signOutButtonClickHandler: () => void;
   signUpButtonClickHandler: () => void;
-  signInModalBackgroundClickHandler: () => void;
-  signUpModalBackgroundClickHandler: () => void;
+  signOutHandler: () => void;
   setAuthenticationState: React.Dispatch<
     React.SetStateAction<AuthenticationState>
   >;
@@ -36,17 +34,16 @@ export interface Props {
 const UserAuthentication: React.FC<Props> = ({
   authenticationState,
   signInButtonClickHandler,
-  signOutButtonClickHandler,
   signUpButtonClickHandler,
-  signInModalBackgroundClickHandler,
-  signUpModalBackgroundClickHandler,
+  signOutHandler,
   setAuthenticationState
 }) => {
   return (
     <>
       {(authenticationState === "SIGNED_OUT" ||
         authenticationState === "SIGNING_IN" ||
-        authenticationState === "SIGNING_UP") && (
+        authenticationState === "SIGNING_UP" ||
+        authenticationState === "SIGNED_UP") && (
         <SignInUpButtonWrapper>
           <Button
             text="Sign In"
@@ -64,12 +61,12 @@ const UserAuthentication: React.FC<Props> = ({
         <Button
           text="Sign Out"
           dataTestId="sign-out-button"
-          onClickHandler={signOutButtonClickHandler}
+          onClickHandler={signOutHandler}
         />
       )}
       <Modal
         isOpen={authenticationState === "SIGNING_IN"}
-        onRequestClose={signInModalBackgroundClickHandler}
+        onRequestClose={signOutHandler}
         contentLabel="sign in via email and password"
         style={modalContentStyle}
         testId="sign-in-modal"
@@ -81,7 +78,7 @@ const UserAuthentication: React.FC<Props> = ({
           authenticationState === "SIGNING_UP" ||
           authenticationState === "SIGNED_UP"
         }
-        onRequestClose={signUpModalBackgroundClickHandler}
+        onRequestClose={signOutHandler}
         contentLabel="sign up via email and password"
         style={modalContentStyle}
         testId="sign-up-modal"
