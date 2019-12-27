@@ -6,11 +6,6 @@ import UserAuthentication, { Props } from ".";
 describe("UserAuthentication", () => {
   const baseProps: Props = {
     authenticationState: "SIGNED_OUT",
-    signInButtonClickHandler: jest.fn(),
-    signOutButtonClickHandler: jest.fn(),
-    signUpButtonClickHandler: jest.fn(),
-    signInModalBackgroundClickHandler: jest.fn(),
-    signUpModalBackgroundClickHandler: jest.fn(),
     setAuthenticationState: jest.fn()
   };
 
