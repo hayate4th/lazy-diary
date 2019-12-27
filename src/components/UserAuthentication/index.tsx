@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Button from "../Button";
 import SignUpForm from "../../containers/SignUpForm";
 import SignInForm from "../../containers/SignInForm";
+import { AuthenticationState } from "../../types/UserAuthentication";
 
 Modal.setAppElement("body");
 const modalContentStyle = {
@@ -21,37 +22,31 @@ const modalContentStyle = {
 };
 
 export interface Props {
-  isSignedIn: boolean;
-  isSigningIn: boolean;
-  isSigningUp: boolean;
-  hasSignedUp: boolean;
+  authenticationState: AuthenticationState;
   signInButtonClickHandler: () => void;
   signOutButtonClickHandler: () => void;
   signUpButtonClickHandler: () => void;
   signInModalBackgroundClickHandler: () => void;
   signUpModalBackgroundClickHandler: () => void;
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSigningIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthenticationState: React.Dispatch<
+    React.SetStateAction<AuthenticationState>
+  >;
 }
 
 const UserAuthentication: React.FC<Props> = ({
-  isSignedIn,
-  isSigningIn,
-  isSigningUp,
-  hasSignedUp,
+  authenticationState,
   signInButtonClickHandler,
   signOutButtonClickHandler,
   signUpButtonClickHandler,
   signInModalBackgroundClickHandler,
   signUpModalBackgroundClickHandler,
-  setIsSignedIn,
-  setIsSigningIn,
-  setHasSignedUp
+  setAuthenticationState
 }) => {
   return (
     <>
-      {!isSignedIn && (
+      {(authenticationState === "SIGNED_OUT" ||
+        authenticationState === "SIGNING_IN" ||
+        authenticationState === "SIGNING_UP") && (
         <SignInUpButtonWrapper>
           <Button
             text="Sign In"
@@ -65,7 +60,7 @@ const UserAuthentication: React.FC<Props> = ({
           />
         </SignInUpButtonWrapper>
       )}
-      {isSignedIn && (
+      {authenticationState === "SIGNED_IN" && (
         <Button
           text="Sign Out"
           dataTestId="sign-out-button"
@@ -73,25 +68,25 @@ const UserAuthentication: React.FC<Props> = ({
         />
       )}
       <Modal
-        isOpen={isSigningIn}
+        isOpen={authenticationState === "SIGNING_IN"}
         onRequestClose={signInModalBackgroundClickHandler}
         contentLabel="sign in via email and password"
         style={modalContentStyle}
         testId="sign-in-modal"
       >
-        <SignInForm
-          setIsSignedIn={setIsSignedIn}
-          setIsSigningIn={setIsSigningIn}
-        />
+        <SignInForm setAuthenticationState={setAuthenticationState} />
       </Modal>
       <Modal
-        isOpen={isSigningUp}
+        isOpen={
+          authenticationState === "SIGNING_UP" ||
+          authenticationState === "SIGNED_UP"
+        }
         onRequestClose={signUpModalBackgroundClickHandler}
         contentLabel="sign up via email and password"
         style={modalContentStyle}
         testId="sign-up-modal"
       >
-        {hasSignedUp && (
+        {authenticationState === "SIGNED_UP" && (
           <VerifyWrapper data-testid="verify-email">
             <VerifyTitle>Please verify your email address</VerifyTitle>
             <VerifyInstruction>
@@ -99,7 +94,9 @@ const UserAuthentication: React.FC<Props> = ({
             </VerifyInstruction>
           </VerifyWrapper>
         )}
-        {!hasSignedUp && <SignUpForm setHasSignedUp={setHasSignedUp} />}
+        {authenticationState === "SIGNING_UP" && (
+          <SignUpForm setAuthenticationState={setAuthenticationState} />
+        )}
       </Modal>
     </>
   );

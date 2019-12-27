@@ -1,33 +1,30 @@
 import React, { useState } from "react";
 
 import UserAuthenticationComponent from "../../components/UserAuthentication";
+import { AuthenticationState } from "../../types/UserAuthentication";
 
 const UserAuthentication: React.FC = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [isSigningIn, setIsSigningIn] = useState(false);
-  const [isSigningUp, setIsSigningUp] = useState(false);
-  const [hasSignedUp, setHasSignedUp] = useState(false);
+  const [authenticationState, setAuthenticationState] = useState<
+    AuthenticationState
+  >("SIGNED_OUT");
 
-  const signInButtonClickHandler = () => setIsSigningIn(true);
-  const signOutButtonClickHandler = () => setIsSignedIn(false);
-  const signUpButtonClickHandler = () => setIsSigningUp(true);
-  const signInModalBackgroundClickHandler = () => setIsSigningIn(false);
-  const signUpModalBackgroundClickHandler = () => setIsSigningUp(false);
+  const signInButtonClickHandler = () => setAuthenticationState("SIGNING_IN");
+  const signOutButtonClickHandler = () => setAuthenticationState("SIGNED_OUT");
+  const signUpButtonClickHandler = () => setAuthenticationState("SIGNING_UP");
+  const signInModalBackgroundClickHandler = () =>
+    setAuthenticationState("SIGNED_OUT");
+  const signUpModalBackgroundClickHandler = () =>
+    setAuthenticationState("SIGNED_OUT");
 
   return (
     <UserAuthenticationComponent
-      isSignedIn={isSignedIn}
-      isSigningIn={isSigningIn}
-      isSigningUp={isSigningUp}
-      hasSignedUp={hasSignedUp}
+      authenticationState={authenticationState}
       signInButtonClickHandler={signInButtonClickHandler}
       signOutButtonClickHandler={signOutButtonClickHandler}
       signUpButtonClickHandler={signUpButtonClickHandler}
       signInModalBackgroundClickHandler={signInModalBackgroundClickHandler}
       signUpModalBackgroundClickHandler={signUpModalBackgroundClickHandler}
-      setIsSignedIn={setIsSignedIn}
-      setIsSigningIn={setIsSigningIn}
-      setHasSignedUp={setHasSignedUp}
+      setAuthenticationState={setAuthenticationState}
     />
   );
 };

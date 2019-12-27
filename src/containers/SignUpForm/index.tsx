@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import SignUpFormComponent from "../../components/SignUpForm";
-import { UserAuthenticationData } from "../../types/UserAuthentication";
+import {
+  UserAuthenticationData,
+  AuthenticationState
+} from "../../types/UserAuthentication";
 import {
   firebaseAuth,
   getFieldNameAndMessageFromError
@@ -10,7 +13,9 @@ import {
 import { checkIfFieldsAreEmpty } from "../../utils/userAuthentication";
 
 interface Props {
-  setHasSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthenticationState: React.Dispatch<
+    React.SetStateAction<AuthenticationState>
+  >;
 }
 
 const checkIfPasswordsAreSame = (
@@ -23,7 +28,7 @@ const checkIfPasswordsAreSame = (
   return password === confirmationPassword;
 };
 
-const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
+const SignUpForm: React.FC<Props> = ({ setAuthenticationState }) => {
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState(false);
 
   const onSubmitHandler = async (
@@ -44,7 +49,7 @@ const SignUpForm: React.FC<Props> = ({ setHasSignedUp }) => {
         password
       );
       await user?.sendEmailVerification();
-      setHasSignedUp(true);
+      setAuthenticationState("SIGNED_UP");
     } catch (error) {
       const [fieldName, errorMessage] = getFieldNameAndMessageFromError(error);
       setFieldError(fieldName, errorMessage);

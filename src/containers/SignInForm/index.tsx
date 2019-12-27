@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import SignInFormComponent from "../../components/SignInForm";
-import { UserAuthenticationData } from "../../types/UserAuthentication";
+import {
+  UserAuthenticationData,
+  AuthenticationState
+} from "../../types/UserAuthentication";
 import {
   firebaseAuth,
   getFieldNameAndMessageFromError
@@ -10,11 +13,12 @@ import {
 import { checkIfFieldsAreEmpty } from "../../utils/userAuthentication";
 
 interface Props {
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSigningIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthenticationState: React.Dispatch<
+    React.SetStateAction<AuthenticationState>
+  >;
 }
 
-const SignInForm: React.FC<Props> = ({ setIsSignedIn, setIsSigningIn }) => {
+const SignInForm: React.FC<Props> = ({ setAuthenticationState }) => {
   const [signInButtonIsDisabled, setSignInButtonIsDisabled] = useState(false);
 
   const onSubmitHandler = async (
@@ -35,8 +39,7 @@ const SignInForm: React.FC<Props> = ({ setIsSignedIn, setIsSigningIn }) => {
         return;
       }
 
-      setIsSignedIn(true);
-      setIsSigningIn(false);
+      setAuthenticationState("SIGNED_IN");
     } catch (error) {
       const [fieldName, errorMessage] = getFieldNameAndMessageFromError(error);
       setFieldError(fieldName, errorMessage);
