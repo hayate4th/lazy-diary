@@ -1,6 +1,6 @@
 import { VisibleForTesting } from ".";
 
-describe("SignUpForm/container", () => {
+describe("TemplateRow/container", () => {
   const { typeToText } = VisibleForTesting;
 
   it("typeToText returns 'Title' when type is 'TITLE'", () => {
