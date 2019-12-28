@@ -35,7 +35,7 @@ const TemplateRow: React.FC<Props> = ({
           name={name}
           type="text"
           className={type}
-          onKeyDown={event => onKeyDownHandler(event.key)}
+          onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           ref={inputRef}
         />
       )}
