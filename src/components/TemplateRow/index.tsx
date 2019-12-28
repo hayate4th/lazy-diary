@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import TextareaAutosize from "react-textarea-autosize";
 
 import { RowType } from "../../types/TemplateWriter";
 
@@ -30,6 +31,9 @@ const TemplateRow: React.FC<Props> = ({
   onChangeHandler,
   setFocusedRowName
 }) => {
+  const MAX_ROW_SIZE = 10;
+  const MIN_ROW_SIZE = 2;
+
   return (
     <Row
       onFocus={() => setFocusedRowName(name)}
@@ -58,9 +62,11 @@ const TemplateRow: React.FC<Props> = ({
           name={name}
           value={value}
           className={type}
+          maxRows={MAX_ROW_SIZE}
+          minRows={MIN_ROW_SIZE}
           onChange={onChangeHandler}
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
-          ref={textareaRef}
+          inputRef={textareaRef}
           data-testid="template-row-textarea"
         />
       )}
@@ -79,24 +85,37 @@ const Label = styled.label`
     props.className === "focused" ? "#49c6dd" : "#c7c4c4"};
   border-radius: 6px;
   color: #f7f6f6;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   margin-right: 20px;
   padding: 2px 5px;
   text-align: center;
-  width: 50px;
+  width: 80px;
 `;
 
 const Input = styled.input`
-  font-size: ${props => (props.className === "TITLE" ? "2.5em" : "2em")};
+  border: 1px solid #c7c4c4;
+  font-size: ${props => (props.className === "TITLE" ? "3em" : "2em")};
   font-weight: bold;
+  padding: 5px;
   width: 100%;
+
+  &:focus {
+    outline: 3px solid #49c6dd;
+  }
 `;
 
-const Textarea = styled.textarea`
+const Textarea = styled(TextareaAutosize)`
+  border: 1px solid #c7c4c4;
   font-size: 1.5em;
+  line-height: 1.5em;
+  padding: 5px;
   resize: none;
   width: 100%;
+
+  &:focus {
+    outline: 3px solid #49c6dd;
+  }
 `;
 
 export default TemplateRow;
