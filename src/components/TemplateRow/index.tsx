@@ -22,7 +22,10 @@ const TemplateRow: React.FC<Props> = ({
   setFocusedRowName
 }) => {
   return (
-    <Row onFocus={() => setFocusedRowName(name)}>
+    <Row
+      onFocus={() => setFocusedRowName(name)}
+      onBlur={() => setFocusedRowName("")}
+    >
       <Label htmlFor={name} className={isFocused ? "focused" : ""}>
         {text}
       </Label>
