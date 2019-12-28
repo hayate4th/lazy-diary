@@ -32,6 +32,8 @@ const TemplateWriter: React.FC = () => {
     if (matchObject === null) return;
     const rowNumber = Number(matchObject[1]);
     if (operationType === "ADD_ROW") setFocusedRowName(`row${rowNumber + 1}`);
+    if (operationType === "DELETE_ROW")
+      setFocusedRowName(`row${rowNumber < 1 ? "0" : rowNumber - 1}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowList, operationType]);
 
