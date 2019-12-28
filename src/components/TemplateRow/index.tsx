@@ -79,24 +79,36 @@ const Label = styled.label`
     props.className === "focused" ? "#49c6dd" : "#c7c4c4"};
   border-radius: 6px;
   color: #f7f6f6;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: bold;
   margin-right: 20px;
   padding: 2px 5px;
   text-align: center;
-  width: 50px;
+  width: 80px;
 `;
 
 const Input = styled.input`
-  font-size: ${props => (props.className === "TITLE" ? "2.5em" : "2em")};
+  border: 1px solid #c7c4c4;
+  font-size: ${props => (props.className === "TITLE" ? "3em" : "2em")};
   font-weight: bold;
+  padding: 5px;
   width: 100%;
+
+  &:focus {
+    outline: 3px solid #49c6dd;
+  }
 `;
 
 const Textarea = styled.textarea`
+  border: 1px solid #c7c4c4;
   font-size: 1.5em;
+  padding: 5px;
   resize: none;
   width: 100%;
+
+  &:focus {
+    outline: 3px solid #49c6dd;
+  }
 `;
 
 export default TemplateRow;
