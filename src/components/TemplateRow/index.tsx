@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { RowType } from "../../types/TemplateWriter";
 
-interface Props {
+export interface Props {
   name: string;
   text: string;
   type: RowType;
@@ -27,6 +27,7 @@ const TemplateRow: React.FC<Props> = ({
     <Row
       onFocus={() => setFocusedRowName(name)}
       onBlur={() => setFocusedRowName("")}
+      data-testid={`template-row-${name}`}
     >
       <Label htmlFor={name} className={isFocused ? "focused" : ""}>
         {text}
@@ -39,6 +40,7 @@ const TemplateRow: React.FC<Props> = ({
           className={type}
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           ref={inputRef}
+          data-testid="template-row-input"
         />
       )}
       {type === "CONTENT" && (
@@ -48,6 +50,7 @@ const TemplateRow: React.FC<Props> = ({
           className={type}
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           ref={textareaRef}
+          data-testid="template-row-textarea"
         />
       )}
     </Row>

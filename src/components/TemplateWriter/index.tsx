@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TemplateRow from "../../containers/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
 
-interface Props {
+export interface Props {
   rowList: RowData[];
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
