@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { RowType } from "../../types/TemplateWriter";
 
 interface Props {
   name: string;
   text: string;
-  type: "TITLE" | "SUBTITLE" | "CONTENT";
+  type: RowType;
   isFocused: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
   onKeyDownHandler: (key: string) => void;

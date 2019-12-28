@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 import TemplateRowComponent from "../../components/TemplateRow";
-import { RowData } from "../../types/TemplateWriter";
+import { RowData, RowType } from "../../types/TemplateWriter";
 
 interface Props extends RowData {
   focusedRowName: string;
-  addNewRow: (type: "TITLE" | "SUBTITLE" | "CONTENT") => void;
+  addNewRow: (type: RowType) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const typeToText = (type: "TITLE" | "SUBTITLE" | "CONTENT"): string => {
+const typeToText = (type: RowType): string => {
   switch (type) {
     case "TITLE":
       return "Title";

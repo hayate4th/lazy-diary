@@ -1,4 +1,6 @@
+export type RowType = "TITLE" | "SUBTITLE" | "CONTENT";
+
 export interface RowData {
   name: string;
-  type: "TITLE" | "SUBTITLE" | "CONTENT";
+  type: RowType;
 }

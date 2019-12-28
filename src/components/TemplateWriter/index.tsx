@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import TemplateRow from "../../containers/TemplateRow";
-import { RowData } from "../../types/TemplateWriter";
+import { RowData, RowType } from "../../types/TemplateWriter";
 
 interface Props {
   rowList: RowData[];
   focusedRowName: string;
-  addNewRow: (type: "TITLE" | "SUBTITLE" | "CONTENT") => void;
+  addNewRow: (type: RowType) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
