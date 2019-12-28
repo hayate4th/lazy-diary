@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import TemplateRowComponent from "../../components/TemplateRow";
+import { RowData } from "../../types/TemplateWriter";
 
-interface Props {
-  name: string;
-  type: "TITLE" | "SUBTITLE" | "CONTENT";
+interface Props extends RowData {
+  focusedRowName: string;
+  addNewRow: (type: "TITLE" | "SUBTITLE" | "CONTENT") => void;
+  setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const typeToText = (type: "TITLE" | "SUBTITLE" | "CONTENT"): string => {
@@ -20,16 +22,33 @@ const typeToText = (type: "TITLE" | "SUBTITLE" | "CONTENT"): string => {
   }
 };
 
-const TemplateRow: React.FC<Props> = ({ name, type }) => {
-  const [isFocused, setIsFocused] = useState(false);
+const TemplateRow: React.FC<Props> = ({
+  name,
+  type,
+  focusedRowName,
+  addNewRow,
+  setFocusedRowName
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (name === focusedRowName) inputRef.current!.focus();
+  }, [focusedRowName, name]);
+
+  const onKeyDownHandler = (key: string) => {
+    if (key !== "Enter") return;
+    addNewRow(type);
+  };
 
   return (
     <TemplateRowComponent
       name={name}
       type={type}
       text={typeToText(type)}
-      isFocused={isFocused}
-      setIsFocused={setIsFocused}
+      isFocused={name === focusedRowName}
+      onKeyDownHandler={onKeyDownHandler}
+      setFocusedRowName={setFocusedRowName}
+      inputRef={inputRef}
     />
   );
 };

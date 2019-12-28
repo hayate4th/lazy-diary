@@ -6,7 +6,9 @@ interface Props {
   text: string;
   type: "TITLE" | "SUBTITLE" | "CONTENT";
   isFocused: boolean;
-  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
+  inputRef: React.RefObject<HTMLInputElement>;
+  onKeyDownHandler: (key: string) => void;
+  setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const TemplateRow: React.FC<Props> = ({
@@ -14,15 +16,24 @@ const TemplateRow: React.FC<Props> = ({
   text,
   type,
   isFocused,
-  setIsFocused
+  inputRef,
+  onKeyDownHandler,
+  setFocusedRowName
 }) => {
   return (
-    <Row onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
+    <Row onFocus={() => setFocusedRowName(name)}>
       <Label htmlFor={name} className={isFocused ? "focused" : ""}>
         {text}
       </Label>
       {(type === "TITLE" || type === "SUBTITLE") && (
-        <Input id={name} name={name} type="text" className={type} />
+        <Input
+          id={name}
+          name={name}
+          type="text"
+          className={type}
+          onKeyDown={event => onKeyDownHandler(event.key)}
+          ref={inputRef}
+        />
       )}
       {type === "CONTENT" && (
         <Textarea id={name} name={name} className={type} />
