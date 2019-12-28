@@ -8,8 +8,10 @@ describe("TemplateRowcomponent", () => {
     name: "",
     text: "",
     type: "TITLE",
+    value: "",
     isFocused: false,
     onKeyDownHandler: jest.fn(),
+    onChangeHandler: jest.fn(),
     setFocusedRowName: jest.fn()
   };
 

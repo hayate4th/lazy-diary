@@ -8,7 +8,9 @@ describe("TemplateWriter/component", () => {
     rowList: [],
     focusedRowName: "",
     addNewRow: jest.fn(),
+    deleteRow: jest.fn(),
     changeRowType: jest.fn(),
+    changeRowValue: jest.fn(),
     setFocusedRowName: jest.fn()
   };
 
@@ -16,9 +18,9 @@ describe("TemplateWriter/component", () => {
     const props: Props = {
       ...baseProps,
       rowList: [
-        { name: "row0", type: "TITLE" },
-        { name: "row1", type: "TITLE" },
-        { name: "row2", type: "TITLE" }
+        { name: "row0", type: "TITLE", value: "TEST" },
+        { name: "row1", type: "TITLE", value: "TEST" },
+        { name: "row2", type: "TITLE", value: "TEST" }
       ]
     };
 
