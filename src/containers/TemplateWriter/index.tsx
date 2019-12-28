@@ -21,7 +21,7 @@ const changeRowTypeInner = (type: RowType, isUp: boolean): RowType => {
 
 const TemplateWriter: React.FC = () => {
   const [rowList, setRowList] = useState<RowData[]>([
-    { name: "row0", type: "TITLE" }
+    { name: "row0", type: "TITLE", value: "" }
   ]);
   const [focusedRowName, setFocusedRowName] = useState("row0");
   const [operationType, setOperationType] = useState<OperationType>("NORMAL");
@@ -32,18 +32,40 @@ const TemplateWriter: React.FC = () => {
   }, [rowList, operationType]);
 
   const addNewRow = (type: RowType) => {
-    setRowList([...rowList, { name: `row${rowList.length}`, type }]);
+    setRowList([...rowList, { name: `row${rowList.length}`, type, value: "" }]);
     setOperationType("ADD_ROW");
+  };
+
+  const deleteRow = (name: string) => {
+    if (rowList.length <= 1) return;
+    const newRowList = rowList.filter(row => row.name !== name);
+    setRowList(
+      newRowList.map((row, index) => ({
+        name: `row${index}`,
+        type: row.type,
+        value: row.value
+      }))
+    );
+    setOperationType("DELETE_ROW");
   };
 
   const changeRowType = (name: string, type: RowType, isUp: boolean) => {
     const changedType = changeRowTypeInner(type, isUp);
     setRowList(
-      rowList.map((row, index) =>
-        row.name === name ? { name: `row${index}`, type: changedType } : row
+      rowList.map(row =>
+        row.name === name ? { name, type: changedType, value: row.value } : row
       )
     );
     setOperationType("CHANGE_ROW_TYPE");
+  };
+
+  const changeRowValue = (name: string, value: string) => {
+    setRowList(
+      rowList.map(row =>
+        row.name === name ? { name, type: row.type, value } : row
+      )
+    );
+    setOperationType("CHANGE_ROW_VALUE");
   };
 
   return (
@@ -51,7 +73,9 @@ const TemplateWriter: React.FC = () => {
       rowList={rowList}
       focusedRowName={focusedRowName}
       addNewRow={addNewRow}
+      deleteRow={deleteRow}
       changeRowType={changeRowType}
+      changeRowValue={changeRowValue}
       setFocusedRowName={setFocusedRowName}
     />
   );

@@ -6,10 +6,14 @@ export interface Props {
   name: string;
   text: string;
   type: RowType;
+  value: string;
   isFocused: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
   onKeyDownHandler: (key: string) => void;
+  onChangeHandler: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -17,10 +21,12 @@ const TemplateRow: React.FC<Props> = ({
   name,
   text,
   type,
+  value,
   isFocused,
   inputRef,
   textareaRef,
   onKeyDownHandler,
+  onChangeHandler,
   setFocusedRowName
 }) => {
   return (
@@ -37,7 +43,9 @@ const TemplateRow: React.FC<Props> = ({
           id={name}
           name={name}
           type="text"
+          value={value}
           className={type}
+          onChange={onChangeHandler}
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           ref={inputRef}
           data-testid="template-row-input"
@@ -47,7 +55,9 @@ const TemplateRow: React.FC<Props> = ({
         <Textarea
           id={name}
           name={name}
+          value={value}
           className={type}
+          onChange={onChangeHandler}
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           ref={textareaRef}
           data-testid="template-row-textarea"

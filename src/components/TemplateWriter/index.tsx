@@ -8,7 +8,9 @@ export interface Props {
   rowList: RowData[];
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
+  deleteRow: (name: string) => void;
   changeRowType: (name: string, type: RowType, isUp: boolean) => void;
+  changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -16,7 +18,9 @@ const TemplateWriter: React.FC<Props> = ({
   rowList,
   focusedRowName,
   addNewRow,
+  deleteRow,
   changeRowType,
+  changeRowValue,
   setFocusedRowName
 }) => {
   return (
@@ -26,9 +30,12 @@ const TemplateWriter: React.FC<Props> = ({
           key={row.name}
           name={row.name}
           type={row.type}
+          value={row.value}
           focusedRowName={focusedRowName}
           addNewRow={addNewRow}
+          deleteRow={deleteRow}
           changeRowType={changeRowType}
+          changeRowValue={changeRowValue}
           setFocusedRowName={setFocusedRowName}
         />
       ))}

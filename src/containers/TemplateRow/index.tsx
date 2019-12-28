@@ -6,7 +6,9 @@ import { RowData, RowType } from "../../types/TemplateWriter";
 interface Props extends RowData {
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
+  deleteRow: (name: string) => void;
   changeRowType: (name: string, type: RowType, isUp: boolean) => void;
+  changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -26,9 +28,12 @@ const typeToText = (type: RowType): string => {
 const TemplateRow: React.FC<Props> = ({
   name,
   type,
+  value,
   focusedRowName,
   addNewRow,
+  deleteRow,
   changeRowType,
+  changeRowValue,
   setFocusedRowName
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,6 +54,10 @@ const TemplateRow: React.FC<Props> = ({
       addNewRow(type);
       return;
     }
+    if (key === "Backspace") {
+      deleteRow(name);
+      return;
+    }
     if (key === "ArrowUp") {
       changeRowType(name, type, true);
       return;
@@ -58,13 +67,21 @@ const TemplateRow: React.FC<Props> = ({
     }
   };
 
+  const onChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    changeRowValue(name, event.currentTarget.value);
+  };
+
   return (
     <TemplateRowComponent
       name={name}
       type={type}
+      value={value}
       text={typeToText(type)}
       isFocused={name === focusedRowName}
       onKeyDownHandler={onKeyDownHandler}
+      onChangeHandler={onChangeHandler}
       setFocusedRowName={setFocusedRowName}
       inputRef={inputRef}
       textareaRef={textareaRef}
