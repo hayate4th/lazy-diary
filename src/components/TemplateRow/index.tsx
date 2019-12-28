@@ -7,7 +7,8 @@ interface Props {
   text: string;
   type: RowType;
   isFocused: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  textareaRef?: React.RefObject<HTMLTextAreaElement>;
   onKeyDownHandler: (key: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -18,6 +19,7 @@ const TemplateRow: React.FC<Props> = ({
   type,
   isFocused,
   inputRef,
+  textareaRef,
   onKeyDownHandler,
   setFocusedRowName
 }) => {
@@ -40,7 +42,13 @@ const TemplateRow: React.FC<Props> = ({
         />
       )}
       {type === "CONTENT" && (
-        <Textarea id={name} name={name} className={type} />
+        <Textarea
+          id={name}
+          name={name}
+          className={type}
+          onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
+          ref={textareaRef}
+        />
       )}
     </Row>
   );

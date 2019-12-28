@@ -6,6 +6,7 @@ import { RowData, RowType } from "../../types/TemplateWriter";
 interface Props extends RowData {
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
+  changeRowType: (name: string, type: RowType, isUp: boolean) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -27,17 +28,34 @@ const TemplateRow: React.FC<Props> = ({
   type,
   focusedRowName,
   addNewRow,
+  changeRowType,
   setFocusedRowName
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (name === focusedRowName) inputRef.current!.focus();
-  }, [focusedRowName, name]);
+    if (name === focusedRowName) {
+      if (type !== "CONTENT") {
+        inputRef.current!.focus();
+        return;
+      }
+      textareaRef.current!.focus();
+    }
+  }, [focusedRowName, name, type]);
 
   const onKeyDownHandler = (key: string) => {
-    if (key !== "Enter") return;
-    addNewRow(type);
+    if (key === "Enter") {
+      addNewRow(type);
+      return;
+    }
+    if (key === "ArrowUp") {
+      changeRowType(name, type, true);
+      return;
+    }
+    if (key === "ArrowDown") {
+      changeRowType(name, type, false);
+    }
   };
 
   return (
@@ -49,6 +67,7 @@ const TemplateRow: React.FC<Props> = ({
       onKeyDownHandler={onKeyDownHandler}
       setFocusedRowName={setFocusedRowName}
       inputRef={inputRef}
+      textareaRef={textareaRef}
     />
   );
 };
