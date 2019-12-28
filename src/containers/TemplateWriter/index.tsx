@@ -26,13 +26,31 @@ const TemplateWriter: React.FC = () => {
   const [focusedRowName, setFocusedRowName] = useState("row0");
   const [operationType, setOperationType] = useState<OperationType>("NORMAL");
 
+  // TODO: Find out a better way to observe focusedRowName here
   useEffect(() => {
-    if (operationType === "ADD_ROW")
-      setFocusedRowName(rowList[rowList.length - 1].name);
+    const matchObject = focusedRowName.match(/row(\d+)/);
+    if (matchObject === null) return;
+    const rowNumber = Number(matchObject[1]);
+    if (operationType === "ADD_ROW") setFocusedRowName(`row${rowNumber + 1}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowList, operationType]);
 
+  // TODO: Find if there is a better way to add
   const addNewRow = (type: RowType) => {
-    setRowList([...rowList, { name: `row${rowList.length}`, type, value: "" }]);
+    const newRowList = rowList.map(row =>
+      row.name === focusedRowName
+        ? [row, { name: `row${rowList.length}`, type, value: "" }]
+        : row
+    );
+    setRowList(
+      newRowList
+        .flatMap(row => row)
+        .map((row, index) => ({
+          name: `row${index}`,
+          type: row.type,
+          value: row.value
+        }))
+    );
     setOperationType("ADD_ROW");
   };
 
