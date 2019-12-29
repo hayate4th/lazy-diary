@@ -4,8 +4,10 @@ import TextareaAutosize from "react-textarea-autosize";
 
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
+import { Draggable } from "react-beautiful-dnd";
 
 export interface Props {
+  index: number;
   name: string;
   text: string;
   type: RowType;
@@ -21,6 +23,7 @@ export interface Props {
 }
 
 const TemplateRow: React.FC<Props> = ({
+  index,
   name,
   text,
   type,
@@ -36,42 +39,49 @@ const TemplateRow: React.FC<Props> = ({
   const MIN_ROW_SIZE = 2;
 
   return (
-    <Row
-      onFocus={() => setFocusedRowName(name)}
-      onBlur={() => setFocusedRowName("")}
-      data-testid={`template-row-${name}`}
-    >
-      <Label htmlFor={name} className={isFocused ? "focused" : ""}>
-        {text}
-      </Label>
-      {(type === "TITLE" || type === "SUBTITLE") && (
-        <Input
-          id={name}
-          name={name}
-          type="text"
-          value={value}
-          className={type}
-          onChange={onChangeHandler}
-          onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
-          ref={inputRef}
-          data-testid="template-row-input"
-        />
+    <Draggable draggableId={`draggable-template-row-${name}`} index={index}>
+      {provided => (
+        <Row
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          onFocus={() => setFocusedRowName(name)}
+          onBlur={() => setFocusedRowName("")}
+          data-testid={`template-row-${name}`}
+        >
+          <Label htmlFor={name} className={isFocused ? "focused" : ""}>
+            {text}
+          </Label>
+          {(type === "TITLE" || type === "SUBTITLE") && (
+            <Input
+              id={name}
+              name={name}
+              type="text"
+              value={value}
+              className={type}
+              onChange={onChangeHandler}
+              onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
+              ref={inputRef}
+              data-testid="template-row-input"
+            />
+          )}
+          {type === "CONTENT" && (
+            <Textarea
+              id={name}
+              name={name}
+              value={value}
+              className={type}
+              maxRows={MAX_ROW_SIZE}
+              minRows={MIN_ROW_SIZE}
+              onChange={onChangeHandler}
+              onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
+              inputRef={textareaRef}
+              data-testid="template-row-textarea"
+            />
+          )}
+        </Row>
       )}
-      {type === "CONTENT" && (
-        <Textarea
-          id={name}
-          name={name}
-          value={value}
-          className={type}
-          maxRows={MAX_ROW_SIZE}
-          minRows={MIN_ROW_SIZE}
-          onChange={onChangeHandler}
-          onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
-          inputRef={textareaRef}
-          data-testid="template-row-textarea"
-        />
-      )}
-    </Row>
+    </Draggable>
   );
 };
 

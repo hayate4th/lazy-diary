@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import TemplateWriterComponent from "../../components/TemplateWriter";
 import { RowData, RowType, OperationType } from "../../types/TemplateWriter";
 import { changeRowTypeFromIsUp } from "../../utils/templateWriter";
+import { DropResult } from "react-beautiful-dnd";
 
 const TemplateWriter: React.FC = () => {
   const [rowList, setRowList] = useState<RowData[]>([
@@ -74,6 +75,32 @@ const TemplateWriter: React.FC = () => {
     setOperationType("CHANGE_ROW_VALUE");
   };
 
+  const reorderRowList = (
+    list: RowData[],
+    startIndex: number,
+    endIndex: number
+  ) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedRowList = reorderRowList(
+      rowList,
+      result.source.index,
+      result.destination.index
+    );
+
+    setRowList(reorderedRowList);
+  };
+
   return (
     <TemplateWriterComponent
       rowList={rowList}
@@ -83,6 +110,7 @@ const TemplateWriter: React.FC = () => {
       deleteRow={deleteRow}
       changeRowType={changeRowType}
       changeRowValue={changeRowValue}
+      onDragEnd={onDragEnd}
       setFocusedRowName={setFocusedRowName}
       setIsPreviewMode={setIsPreviewMode}
     />

@@ -5,6 +5,7 @@ import { RowData, RowType } from "../../types/TemplateWriter";
 import { typeToText } from "../../utils/templateRow";
 
 interface Props extends RowData {
+  index: number;
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
   deleteRow: (name: string) => void;
@@ -14,6 +15,7 @@ interface Props extends RowData {
 }
 
 const TemplateRow: React.FC<Props> = ({
+  index,
   name,
   type,
   value,
@@ -63,6 +65,7 @@ const TemplateRow: React.FC<Props> = ({
 
   return (
     <TemplateRowComponent
+      index={index}
       name={name}
       type={type}
       value={value}
