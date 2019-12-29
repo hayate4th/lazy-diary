@@ -88,6 +88,7 @@ const Header = styled.div`
 
 const Preview = styled.div`
   padding: 10px 20px;
+  max-width: calc(100vw - 40px);
 `;
 
 export default TemplateWriter;

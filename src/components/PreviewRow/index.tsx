@@ -46,17 +46,20 @@ const PreviewRow: React.FC<Props> = ({ name, text, type }) => {
 const Row = styled.div`
   color: #434344;
   margin-bottom: 10px;
-  width: 750px;
 `;
 
 const Title = styled.div`
   font-size: ${props => getFontSizeFromType(props.className as RowType)};
   font-weight: bold;
+  max-width: 750px;
+  word-wrap: break-word;
 `;
 
 const ContentRow = styled.div`
   font-size: ${props => getFontSizeFromType(props.className as RowType)};
   line-height: 1.5em;
+  max-width: 750px;
+  word-wrap: break-word;
 `;
 
 export default PreviewRow;
