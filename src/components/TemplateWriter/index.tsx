@@ -50,6 +50,7 @@ const TemplateWriter: React.FC<Props> = ({
           <Preview>
             {rowList.map((row, index) => (
               <PreviewRow
+                name={row.name}
                 text={row.value}
                 type={row.type}
                 key={`preview-row-${index}`}

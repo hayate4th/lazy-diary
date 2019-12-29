@@ -4,22 +4,37 @@ import styled from "styled-components";
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
 
-interface Props {
+export interface Props {
+  name: string;
   text: string;
   type: RowType;
 }
 
-const PreviewRow: React.FC<Props> = ({ text, type }) => {
+const PreviewRow: React.FC<Props> = ({ name, text, type }) => {
+  // When type is CONTENT split the text becuase line breaks are not visible
   return (
-    <Row>
+    <Row data-testid={`preview-row-${name}`}>
       {(type === "TITLE" || type === "SUBTITLE") &&
-        (text === "" ? <br /> : <Title className={type}>{text}</Title>)}
+        (text === "" ? (
+          <br data-testid={`title-br-${name}`} />
+        ) : (
+          <Title className={type} data-testid={`title-div-${name}`}>
+            {text}
+          </Title>
+        ))}
       {type === "CONTENT" &&
         text.split("\n").map((line, index) =>
           line === "" ? (
-            <br key={`content-row-${index}`} />
+            <br
+              key={`content-row-${index}`}
+              data-testid={`content-row-br-${name}-${index}`}
+            />
           ) : (
-            <ContentRow className={type} key={`content-row-${index}`}>
+            <ContentRow
+              className={type}
+              key={`content-row-${index}`}
+              data-testid={`content-row-div-${name}-${index}`}
+            >
               {line}
             </ContentRow>
           )
