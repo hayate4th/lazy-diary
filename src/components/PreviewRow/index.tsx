@@ -12,9 +12,8 @@ interface Props {
 const PreviewRow: React.FC<Props> = ({ text, type }) => {
   return (
     <Row>
-      {(type === "TITLE" || type === "SUBTITLE") && (
-        <Title className={type}>{text}</Title>
-      )}
+      {(type === "TITLE" || type === "SUBTITLE") &&
+        (text === "" ? <br /> : <Title className={type}>{text}</Title>)}
       {type === "CONTENT" &&
         text.split("\n").map((line, index) =>
           line === "" ? (
