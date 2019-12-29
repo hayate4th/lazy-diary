@@ -34,7 +34,8 @@ export const getFontSizeFromType = (type: RowType) => {
 
 export const allRowsAreEmpty = (rowList: RowData[]) => {
   for (const row of rowList) {
-    if (row.value !== "") return false;
+    // empty ContentRows contain white spaces, we need to trim them
+    if (row.value.trim() !== "") return false;
   }
   return true;
 };
