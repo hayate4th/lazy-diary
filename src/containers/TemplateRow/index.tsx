@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 
 import TemplateRowComponent from "../../components/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
+import { typeToText } from "../../utils/templateRow";
 
 interface Props extends RowData {
   focusedRowName: string;
@@ -11,19 +12,6 @@ interface Props extends RowData {
   changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
-
-const typeToText = (type: RowType): string => {
-  switch (type) {
-    case "TITLE":
-      return "Title";
-    case "SUBTITLE":
-      return "Subtitle";
-    case "CONTENT":
-      return "Content";
-    default:
-      throw new Error("type does not match");
-  }
-};
 
 const TemplateRow: React.FC<Props> = ({
   name,
@@ -87,10 +75,6 @@ const TemplateRow: React.FC<Props> = ({
       textareaRef={textareaRef}
     />
   );
-};
-
-export const VisibleForTesting = {
-  typeToText
 };
 
 export default TemplateRow;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TextareaAutosize from "react-textarea-autosize";
 
 import { RowType } from "../../types/TemplateWriter";
+import { getFontSizeFromType } from "../../utils/templateWriter";
 
 export interface Props {
   name: string;
@@ -95,7 +96,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   border: 1px solid #c7c4c4;
-  font-size: ${props => (props.className === "TITLE" ? "3em" : "2em")};
+  font-size: ${props => getFontSizeFromType(props.className as RowType)};
   font-weight: bold;
   padding: 5px;
   width: 100%;
@@ -105,8 +106,10 @@ const Input = styled.input`
   }
 `;
 
+// font-family is needed for Firefox
 const Textarea = styled(TextareaAutosize)`
   border: 1px solid #c7c4c4;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 1.5em;
   line-height: 1.5em;
   padding: 5px;

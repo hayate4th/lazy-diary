@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 import TemplateRow, { Props } from ".";
 
-describe("TemplateRowcomponent", () => {
+describe("TemplateRow", () => {
   const baseProps: Props = {
     name: "",
     text: "",

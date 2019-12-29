@@ -2,22 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import TemplateWriterComponent from "../../components/TemplateWriter";
 import { RowData, RowType, OperationType } from "../../types/TemplateWriter";
-
-const changeRowTypeInner = (type: RowType, isUp: boolean): RowType => {
-  switch (type) {
-    case "TITLE":
-      if (isUp) return type;
-      return "SUBTITLE";
-    case "SUBTITLE":
-      if (isUp) return "TITLE";
-      return "CONTENT";
-    case "CONTENT":
-      if (isUp) return "SUBTITLE";
-      return type;
-    default:
-      throw new Error("Invalid type");
-  }
-};
+import { changeRowTypeFromIsUp } from "../../utils/templateWriter";
 
 const TemplateWriter: React.FC = () => {
   const [rowList, setRowList] = useState<RowData[]>([
@@ -25,6 +10,7 @@ const TemplateWriter: React.FC = () => {
   ]);
   const [focusedRowName, setFocusedRowName] = useState("row0");
   const [operationType, setOperationType] = useState<OperationType>("NORMAL");
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
 
   // TODO: Find out a better way to observe focusedRowName here
   useEffect(() => {
@@ -70,7 +56,7 @@ const TemplateWriter: React.FC = () => {
   };
 
   const changeRowType = (name: string, type: RowType, isUp: boolean) => {
-    const changedType = changeRowTypeInner(type, isUp);
+    const changedType = changeRowTypeFromIsUp(type, isUp);
     setRowList(
       rowList.map(row =>
         row.name === name ? { name, type: changedType, value: row.value } : row
@@ -92,17 +78,15 @@ const TemplateWriter: React.FC = () => {
     <TemplateWriterComponent
       rowList={rowList}
       focusedRowName={focusedRowName}
+      isPreviewMode={isPreviewMode}
       addNewRow={addNewRow}
       deleteRow={deleteRow}
       changeRowType={changeRowType}
       changeRowValue={changeRowValue}
       setFocusedRowName={setFocusedRowName}
+      setIsPreviewMode={setIsPreviewMode}
     />
   );
 };
 
 export default TemplateWriter;
-
-export const VisibleForTesting = {
-  changeRowTypeInner
-};
