@@ -25,6 +25,7 @@ const TemplateWriter: React.FC = () => {
   ]);
   const [focusedRowName, setFocusedRowName] = useState("row0");
   const [operationType, setOperationType] = useState<OperationType>("NORMAL");
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
 
   // TODO: Find out a better way to observe focusedRowName here
   useEffect(() => {
@@ -92,17 +93,15 @@ const TemplateWriter: React.FC = () => {
     <TemplateWriterComponent
       rowList={rowList}
       focusedRowName={focusedRowName}
+      isPreviewMode={isPreviewMode}
       addNewRow={addNewRow}
       deleteRow={deleteRow}
       changeRowType={changeRowType}
       changeRowValue={changeRowValue}
       setFocusedRowName={setFocusedRowName}
+      setIsPreviewMode={setIsPreviewMode}
     />
   );
 };
 
 export default TemplateWriter;
-
-export const VisibleForTesting = {
-  changeRowTypeInner
-};

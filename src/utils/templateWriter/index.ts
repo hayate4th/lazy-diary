@@ -12,3 +12,10 @@ export const getFontSizeFromType = (type: RowType) => {
       throw new Error("Invalid type");
   }
 };
+
+export const allRowsAreEmpty = (rowList: RowData[]) => {
+  for (const row of rowList) {
+    if (row.value !== "") return false;
+  }
+  return true;
+};
