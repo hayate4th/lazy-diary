@@ -13,6 +13,7 @@ export interface Props {
   type: RowType;
   value: string;
   isFocused: boolean;
+  isDragDisabled: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
   onKeyDownHandler: (key: string) => void;
@@ -29,6 +30,7 @@ const TemplateRow: React.FC<Props> = ({
   type,
   value,
   isFocused,
+  isDragDisabled,
   inputRef,
   textareaRef,
   onKeyDownHandler,
@@ -39,7 +41,11 @@ const TemplateRow: React.FC<Props> = ({
   const MIN_ROW_SIZE = 2;
 
   return (
-    <Draggable draggableId={`draggable-template-row-${name}`} index={index}>
+    <Draggable
+      draggableId={`draggable-template-row-${name}`}
+      index={index}
+      isDragDisabled={isDragDisabled}
+    >
       {provided => (
         <Row
           ref={provided.innerRef}
@@ -49,7 +55,10 @@ const TemplateRow: React.FC<Props> = ({
           onBlur={() => setFocusedRowName("")}
           data-testid={`template-row-${name}`}
         >
-          <Label htmlFor={name} className={isFocused ? "focused" : ""}>
+          <Label
+            htmlFor={name}
+            className={isFocused || !isDragDisabled ? "focused" : ""}
+          >
             {text}
           </Label>
           {(type === "TITLE" || type === "SUBTITLE") && (
@@ -63,6 +72,7 @@ const TemplateRow: React.FC<Props> = ({
               onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
               ref={inputRef}
               data-testid="template-row-input"
+              disabled={!isDragDisabled}
             />
           )}
           {type === "CONTENT" && (
@@ -77,6 +87,7 @@ const TemplateRow: React.FC<Props> = ({
               onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
               inputRef={textareaRef}
               data-testid="template-row-textarea"
+              disabled={!isDragDisabled}
             />
           )}
         </Row>
@@ -89,6 +100,10 @@ const Row = styled.div`
   align-items: center;
   display: flex;
   margin-bottom: 10px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Label = styled.label`

@@ -6,6 +6,7 @@ import { typeToText } from "../../utils/templateRow";
 
 interface Props extends RowData {
   index: number;
+  isDragDisabled: boolean;
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
   deleteRow: (name: string) => void;
@@ -16,6 +17,7 @@ interface Props extends RowData {
 
 const TemplateRow: React.FC<Props> = ({
   index,
+  isDragDisabled,
   name,
   type,
   value,
@@ -70,6 +72,7 @@ const TemplateRow: React.FC<Props> = ({
       type={type}
       value={value}
       text={typeToText(type)}
+      isDragDisabled={isDragDisabled}
       isFocused={name === focusedRowName}
       onKeyDownHandler={onKeyDownHandler}
       onChangeHandler={onChangeHandler}

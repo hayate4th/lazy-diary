@@ -13,6 +13,7 @@ export interface Props {
   rowList: RowData[];
   focusedRowName: string;
   isPreviewMode: boolean;
+  isDragAndDropMode: boolean;
   addNewRow: (type: RowType) => void;
   deleteRow: (name: string) => void;
   changeRowType: (name: string, type: RowType, isUp: boolean) => void;
@@ -20,19 +21,22 @@ export interface Props {
   onDragEnd: (result: DropResult) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
   setIsPreviewMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDragAndDropMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TemplateWriter: React.FC<Props> = ({
   rowList,
   focusedRowName,
   isPreviewMode,
+  isDragAndDropMode,
   addNewRow,
   deleteRow,
   changeRowType,
   changeRowValue,
   onDragEnd,
   setFocusedRowName,
-  setIsPreviewMode
+  setIsPreviewMode,
+  setIsDragAndDropMode
 }) => {
   return (
     <>
@@ -42,6 +46,12 @@ const TemplateWriter: React.FC<Props> = ({
           dataTestId="preview-mode-button"
           onClickHandler={() => setIsPreviewMode(true)}
           disabled={allRowsAreEmpty(rowList)}
+        />
+        <Button
+          text={isDragAndDropMode ? "Confirm Rows" : "Reorder Rows"}
+          dataTestId="drag-and-drop-mode-button"
+          onClickHandler={() => setIsDragAndDropMode(!isDragAndDropMode)}
+          disabled={rowList.length <= 1}
         />
       </Header>
       <Drawer
@@ -61,7 +71,7 @@ const TemplateWriter: React.FC<Props> = ({
         </Preview>
       </Drawer>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
+        <Droppable droppableId="droppable" isDropDisabled={!isDragAndDropMode}>
           {provided => (
             <Paper {...provided.droppableProps} ref={provided.innerRef}>
               {rowList.map((row, index) => (
@@ -71,6 +81,7 @@ const TemplateWriter: React.FC<Props> = ({
                   name={row.name}
                   type={row.type}
                   value={row.value}
+                  isDragDisabled={!isDragAndDropMode}
                   focusedRowName={focusedRowName}
                   addNewRow={addNewRow}
                   deleteRow={deleteRow}
@@ -94,7 +105,10 @@ const Paper = styled.div`
 `;
 
 const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
   padding: 10px 20px;
+  width: 300px;
 `;
 
 const Preview = styled.div`

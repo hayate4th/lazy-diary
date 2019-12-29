@@ -12,6 +12,7 @@ const TemplateWriter: React.FC = () => {
   const [focusedRowName, setFocusedRowName] = useState("row0");
   const [operationType, setOperationType] = useState<OperationType>("NORMAL");
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isDragAndDropMode, setIsDragAndDropMode] = useState(false);
 
   // TODO: Find out a better way to observe focusedRowName here
   useEffect(() => {
@@ -106,6 +107,7 @@ const TemplateWriter: React.FC = () => {
       rowList={rowList}
       focusedRowName={focusedRowName}
       isPreviewMode={isPreviewMode}
+      isDragAndDropMode={isDragAndDropMode}
       addNewRow={addNewRow}
       deleteRow={deleteRow}
       changeRowType={changeRowType}
@@ -113,6 +115,7 @@ const TemplateWriter: React.FC = () => {
       onDragEnd={onDragEnd}
       setFocusedRowName={setFocusedRowName}
       setIsPreviewMode={setIsPreviewMode}
+      setIsDragAndDropMode={setIsDragAndDropMode}
     />
   );
 };
