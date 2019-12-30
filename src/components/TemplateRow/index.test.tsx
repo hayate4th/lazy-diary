@@ -1,7 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import { DraggableProvided } from "react-beautiful-dnd";
 
 import TemplateRow, { Props } from ".";
+import { asA } from "../../utils/jest";
 
 describe("TemplateRow", () => {
   const baseProps: Props = {
@@ -10,6 +12,8 @@ describe("TemplateRow", () => {
     type: "TITLE",
     value: "",
     isFocused: false,
+    isDragDisabled: true,
+    draggableProvided: asA<DraggableProvided>({}),
     onKeyDownHandler: jest.fn(),
     onChangeHandler: jest.fn(),
     setFocusedRowName: jest.fn()

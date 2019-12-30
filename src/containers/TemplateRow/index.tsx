@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from "react";
 import TemplateRowComponent from "../../components/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
 import { typeToText } from "../../utils/templateRow";
+import { Draggable } from "react-beautiful-dnd";
 
 interface Props extends RowData {
   index: number;
@@ -66,20 +67,28 @@ const TemplateRow: React.FC<Props> = ({
   };
 
   return (
-    <TemplateRowComponent
+    <Draggable
+      draggableId={`draggable-template-row-${name}`}
       index={index}
-      name={name}
-      type={type}
-      value={value}
-      text={typeToText(type)}
       isDragDisabled={isDragDisabled}
-      isFocused={name === focusedRowName}
-      onKeyDownHandler={onKeyDownHandler}
-      onChangeHandler={onChangeHandler}
-      setFocusedRowName={setFocusedRowName}
-      inputRef={inputRef}
-      textareaRef={textareaRef}
-    />
+    >
+      {provided => (
+        <TemplateRowComponent
+          name={name}
+          type={type}
+          value={value}
+          text={typeToText(type)}
+          isDragDisabled={isDragDisabled}
+          isFocused={name === focusedRowName}
+          draggableProvided={provided}
+          onKeyDownHandler={onKeyDownHandler}
+          onChangeHandler={onChangeHandler}
+          setFocusedRowName={setFocusedRowName}
+          inputRef={inputRef}
+          textareaRef={textareaRef}
+        />
+      )}
+    </Draggable>
   );
 };
 
