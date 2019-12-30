@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import TemplateWriterComponent from "../../components/TemplateWriter";
 import { RowData, RowType, OperationType } from "../../types/TemplateWriter";
-import { changeRowTypeFromIsUp } from "../../utils/templateWriter";
+import {
+  changeRowTypeFromIsUp,
+  reorderRowList
+} from "../../utils/templateWriter";
 import { DropResult } from "react-beautiful-dnd";
 
 const TemplateWriter: React.FC = () => {
@@ -76,30 +79,14 @@ const TemplateWriter: React.FC = () => {
     setOperationType("CHANGE_ROW_VALUE");
   };
 
-  const reorderRowList = (
-    list: RowData[],
-    startIndex: number,
-    endIndex: number
-  ) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
 
-    const reorderedRowList = reorderRowList(
-      rowList,
-      result.source.index,
-      result.destination.index
+    setRowList(
+      reorderRowList(rowList, result.source.index, result.destination.index)
     );
-
-    setRowList(reorderedRowList);
   };
 
   return (
