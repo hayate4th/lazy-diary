@@ -60,8 +60,8 @@ const TemplateWriter: React.FC = () => {
     setOperationType("DELETE_ROW");
   };
 
-  const changeRowType = (name: string, type: RowType, isUp: boolean) => {
-    const changedType = changeRowTypeFromIsUp(type, isUp);
+  const changeRowType = (name: string, type: RowType, isLeft: boolean) => {
+    const changedType = changeRowTypeFromIsUp(type, isLeft);
     setRowList(
       rowList.map(row =>
         row.name === name ? { name, type: changedType, value: row.value } : row

@@ -51,11 +51,11 @@ const TemplateRow: React.FC<Props> = ({
       deleteRow(name);
       return;
     }
-    if (key === "ArrowUp") {
+    if (key === "ArrowLeft") {
       changeRowType(name, type, true);
       return;
     }
-    if (key === "ArrowDown") {
+    if (key === "ArrowRight") {
       changeRowType(name, type, false);
     }
   };
