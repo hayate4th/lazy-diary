@@ -4,6 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
+import { DraggableProvided } from "react-beautiful-dnd";
 
 export interface Props {
   name: string;
@@ -11,8 +12,10 @@ export interface Props {
   type: RowType;
   value: string;
   isFocused: boolean;
+  isDragDisabled: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
+  draggableProvided: DraggableProvided;
   onKeyDownHandler: (key: string) => void;
   onChangeHandler: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,8 +29,10 @@ const TemplateRow: React.FC<Props> = ({
   type,
   value,
   isFocused,
+  isDragDisabled,
   inputRef,
   textareaRef,
+  draggableProvided,
   onKeyDownHandler,
   onChangeHandler,
   setFocusedRowName
@@ -37,11 +42,17 @@ const TemplateRow: React.FC<Props> = ({
 
   return (
     <Row
+      ref={draggableProvided.innerRef}
+      {...draggableProvided.draggableProps}
+      {...draggableProvided.dragHandleProps}
       onFocus={() => setFocusedRowName(name)}
       onBlur={() => setFocusedRowName("")}
       data-testid={`template-row-${name}`}
     >
-      <Label htmlFor={name} className={isFocused ? "focused" : ""}>
+      <Label
+        htmlFor={name}
+        className={isFocused || !isDragDisabled ? "focused" : ""}
+      >
         {text}
       </Label>
       {(type === "TITLE" || type === "SUBTITLE") && (
@@ -55,6 +66,7 @@ const TemplateRow: React.FC<Props> = ({
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           ref={inputRef}
           data-testid="template-row-input"
+          disabled={!isDragDisabled}
         />
       )}
       {type === "CONTENT" && (
@@ -69,6 +81,7 @@ const TemplateRow: React.FC<Props> = ({
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
           inputRef={textareaRef}
           data-testid="template-row-textarea"
+          disabled={!isDragDisabled}
         />
       )}
     </Row>
@@ -79,6 +92,10 @@ const Row = styled.div`
   align-items: center;
   display: flex;
   margin-bottom: 10px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Label = styled.label`

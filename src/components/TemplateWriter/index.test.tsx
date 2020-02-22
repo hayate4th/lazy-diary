@@ -8,12 +8,15 @@ describe("TemplateWriter/component", () => {
     rowList: [],
     focusedRowName: "",
     isPreviewMode: false,
+    isDragAndDropMode: false,
     addNewRow: jest.fn(),
     deleteRow: jest.fn(),
     changeRowType: jest.fn(),
     changeRowValue: jest.fn(),
+    onDragEnd: jest.fn(),
     setFocusedRowName: jest.fn(),
-    setIsPreviewMode: jest.fn()
+    setIsPreviewMode: jest.fn(),
+    setIsDragAndDropMode: jest.fn()
   };
 
   it("3 TemplateRow components exists when rowList length is 3", () => {

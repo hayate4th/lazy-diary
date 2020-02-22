@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import TemplateWriterComponent from "../../components/TemplateWriter";
 import { RowData, RowType, OperationType } from "../../types/TemplateWriter";
-import { changeRowTypeFromIsUp } from "../../utils/templateWriter";
+import {
+  changeRowTypeFromIsUp,
+  reorderRowList
+} from "../../utils/templateWriter";
+import { DropResult } from "react-beautiful-dnd";
 
 const TemplateWriter: React.FC = () => {
   const [rowList, setRowList] = useState<RowData[]>([
@@ -11,6 +15,7 @@ const TemplateWriter: React.FC = () => {
   const [focusedRowName, setFocusedRowName] = useState("row0");
   const [operationType, setOperationType] = useState<OperationType>("NORMAL");
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isDragAndDropMode, setIsDragAndDropMode] = useState(false);
 
   // TODO: Find out a better way to observe focusedRowName here
   useEffect(() => {
@@ -74,17 +79,30 @@ const TemplateWriter: React.FC = () => {
     setOperationType("CHANGE_ROW_VALUE");
   };
 
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    setRowList(
+      reorderRowList(rowList, result.source.index, result.destination.index)
+    );
+  };
+
   return (
     <TemplateWriterComponent
       rowList={rowList}
       focusedRowName={focusedRowName}
       isPreviewMode={isPreviewMode}
+      isDragAndDropMode={isDragAndDropMode}
       addNewRow={addNewRow}
       deleteRow={deleteRow}
       changeRowType={changeRowType}
       changeRowValue={changeRowValue}
+      onDragEnd={onDragEnd}
       setFocusedRowName={setFocusedRowName}
       setIsPreviewMode={setIsPreviewMode}
+      setIsDragAndDropMode={setIsDragAndDropMode}
     />
   );
 };

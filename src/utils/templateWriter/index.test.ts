@@ -1,4 +1,5 @@
-import { changeRowTypeFromIsUp, getFontSizeFromType } from ".";
+import { changeRowTypeFromIsUp, getFontSizeFromType, reorderRowList } from ".";
+import { RowData } from "../../types/TemplateWriter";
 
 describe("templateWriter", () => {
   it("changeRowTypeFromIsUp returns 'SUBTITLE' when type is 'TITLE' and isUp is false", () => {
@@ -35,5 +36,42 @@ describe("templateWriter", () => {
 
   it("getFontSizeFromType returns '1.5em' when type is 'CONTENT'", () => {
     expect(getFontSizeFromType("CONTENT")).toEqual("1.5em");
+  });
+
+  it("reorderRowList returns [1, 2, 0] when RowData 0 is moved to the end", () => {
+    const rowList: RowData[] = [
+      {
+        name: "row0",
+        type: "TITLE",
+        value: "TEST"
+      },
+      {
+        name: "row1",
+        type: "TITLE",
+        value: "TEST"
+      },
+      {
+        name: "row2",
+        type: "TITLE",
+        value: "TEST"
+      }
+    ];
+    expect(reorderRowList(rowList, 0, 2)).toEqual([
+      {
+        name: "row1",
+        type: "TITLE",
+        value: "TEST"
+      },
+      {
+        name: "row2",
+        type: "TITLE",
+        value: "TEST"
+      },
+      {
+        name: "row0",
+        type: "TITLE",
+        value: "TEST"
+      }
+    ]);
   });
 });

@@ -3,8 +3,11 @@ import React, { useRef, useEffect } from "react";
 import TemplateRowComponent from "../../components/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
 import { typeToText } from "../../utils/templateRow";
+import { Draggable } from "react-beautiful-dnd";
 
 interface Props extends RowData {
+  index: number;
+  isDragDisabled: boolean;
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
   deleteRow: (name: string) => void;
@@ -14,6 +17,8 @@ interface Props extends RowData {
 }
 
 const TemplateRow: React.FC<Props> = ({
+  index,
+  isDragDisabled,
   name,
   type,
   value,
@@ -62,18 +67,28 @@ const TemplateRow: React.FC<Props> = ({
   };
 
   return (
-    <TemplateRowComponent
-      name={name}
-      type={type}
-      value={value}
-      text={typeToText(type)}
-      isFocused={name === focusedRowName}
-      onKeyDownHandler={onKeyDownHandler}
-      onChangeHandler={onChangeHandler}
-      setFocusedRowName={setFocusedRowName}
-      inputRef={inputRef}
-      textareaRef={textareaRef}
-    />
+    <Draggable
+      draggableId={`draggable-template-row-${name}`}
+      index={index}
+      isDragDisabled={isDragDisabled}
+    >
+      {provided => (
+        <TemplateRowComponent
+          name={name}
+          type={type}
+          value={value}
+          text={typeToText(type)}
+          isDragDisabled={isDragDisabled}
+          isFocused={name === focusedRowName}
+          draggableProvided={provided}
+          onKeyDownHandler={onKeyDownHandler}
+          onChangeHandler={onChangeHandler}
+          setFocusedRowName={setFocusedRowName}
+          inputRef={inputRef}
+          textareaRef={textareaRef}
+        />
+      )}
+    </Draggable>
   );
 };
 
