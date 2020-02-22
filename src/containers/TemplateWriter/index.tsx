@@ -93,8 +93,17 @@ const TemplateWriter: React.FC = () => {
       return;
     }
 
+    const reorderedRowList = reorderRowList(
+      rowList,
+      result.source.index,
+      result.destination.index
+    );
     setRowList(
-      reorderRowList(rowList, result.source.index, result.destination.index)
+      reorderedRowList.map((row, index) => ({
+        name: `row${index}`,
+        type: row.type,
+        value: row.value
+      }))
     );
   };
 
