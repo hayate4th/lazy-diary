@@ -11,6 +11,7 @@ interface Props extends RowData {
   focusedRowName: string;
   addNewRow: (type: RowType) => void;
   deleteRow: (name: string) => void;
+  moveRow: (isDecrement: boolean) => void;
   changeRowType: (name: string, type: RowType, isUp: boolean) => void;
   changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
@@ -25,6 +26,7 @@ const TemplateRow: React.FC<Props> = ({
   focusedRowName,
   addNewRow,
   deleteRow,
+  moveRow,
   changeRowType,
   changeRowValue,
   setFocusedRowName
@@ -51,12 +53,20 @@ const TemplateRow: React.FC<Props> = ({
       deleteRow(name);
       return;
     }
-    if (key === "ArrowUp") {
+    if (key === "ArrowLeft") {
       changeRowType(name, type, true);
       return;
     }
-    if (key === "ArrowDown") {
+    if (key === "ArrowRight") {
       changeRowType(name, type, false);
+      return;
+    }
+    if (key === "ArrowUp") {
+      moveRow(true);
+      return;
+    }
+    if (key === "ArrowDown") {
+      moveRow(false);
     }
   };
 

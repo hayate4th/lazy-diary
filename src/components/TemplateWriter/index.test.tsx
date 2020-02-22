@@ -11,6 +11,7 @@ describe("TemplateWriter/component", () => {
     isDragAndDropMode: false,
     addNewRow: jest.fn(),
     deleteRow: jest.fn(),
+    moveRow: jest.fn(),
     changeRowType: jest.fn(),
     changeRowValue: jest.fn(),
     onDragEnd: jest.fn(),

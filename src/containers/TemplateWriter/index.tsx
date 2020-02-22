@@ -17,14 +17,9 @@ const TemplateWriter: React.FC = () => {
   const [isPreviewMode, setIsPreviewMode] = useState(false);
   const [isDragAndDropMode, setIsDragAndDropMode] = useState(false);
 
-  // TODO: Find out a better way to observe focusedRowName here
   useEffect(() => {
-    const matchObject = focusedRowName.match(/row(\d+)/);
-    if (matchObject === null) return;
-    const rowNumber = Number(matchObject[1]);
-    if (operationType === "ADD_ROW") setFocusedRowName(`row${rowNumber + 1}`);
-    if (operationType === "DELETE_ROW")
-      setFocusedRowName(`row${rowNumber < 1 ? "0" : rowNumber - 1}`);
+    if (operationType === "ADD_ROW") moveRow(false);
+    if (operationType === "DELETE_ROW") moveRow(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowList, operationType]);
 
@@ -60,8 +55,22 @@ const TemplateWriter: React.FC = () => {
     setOperationType("DELETE_ROW");
   };
 
-  const changeRowType = (name: string, type: RowType, isUp: boolean) => {
-    const changedType = changeRowTypeFromIsUp(type, isUp);
+  const moveRow = (isDecrement: boolean) => {
+    const matchObject = focusedRowName.match(/row(\d+)/);
+    if (matchObject === null) return;
+    const rowNumber = Number(matchObject[1]);
+    let movedRowNumber;
+    if (isDecrement) {
+      movedRowNumber = rowNumber < 1 ? 0 : rowNumber - 1;
+    } else {
+      movedRowNumber =
+        rowNumber + 1 >= rowList.length ? rowNumber : rowNumber + 1;
+    }
+    setFocusedRowName(`row${movedRowNumber}`);
+  };
+
+  const changeRowType = (name: string, type: RowType, isLeft: boolean) => {
+    const changedType = changeRowTypeFromIsUp(type, isLeft);
     setRowList(
       rowList.map(row =>
         row.name === name ? { name, type: changedType, value: row.value } : row
@@ -97,6 +106,7 @@ const TemplateWriter: React.FC = () => {
       isDragAndDropMode={isDragAndDropMode}
       addNewRow={addNewRow}
       deleteRow={deleteRow}
+      moveRow={moveRow}
       changeRowType={changeRowType}
       changeRowValue={changeRowValue}
       onDragEnd={onDragEnd}
