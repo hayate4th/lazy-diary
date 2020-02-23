@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
+import colors from "../../utils/colors";
 
 export interface Props {
   name: string;
@@ -44,7 +45,7 @@ const PreviewRow: React.FC<Props> = ({ name, text, type }) => {
 };
 
 const Row = styled.div`
-  color: #434344;
+  color: ${colors.previewText};
   margin-bottom: 10px;
 `;
 

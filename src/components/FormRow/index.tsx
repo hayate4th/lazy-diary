@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import colors from "../../utils/colors";
+
 // TODO: Limit type property
 export interface Props {
   name: string;
@@ -59,7 +61,7 @@ const Input = styled.input`
 `;
 
 const ErrorMessage = styled.div`
-  color: #f2426c;
+  color: ${colors.formErrorText};
   font-weight: bold;
 `;
 

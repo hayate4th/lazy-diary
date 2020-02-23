@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import UserAuthentication from "../../containers/UserAuthentication";
+import colors from "../../utils/colors";
 
 const AppHeader: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const AppHeader: React.FC = () => {
 };
 
 const Header = styled.div`
-  background-color: #f2426c;
+  background-color: ${colors.headerBackground};
   display: flex;
   justify-content: space-between;
   position: relative;

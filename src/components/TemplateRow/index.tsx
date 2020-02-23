@@ -5,6 +5,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
 import { DraggableProvided } from "react-beautiful-dnd";
+import colors from "../../utils/colors";
 
 export interface Props {
   name: string;
@@ -100,9 +101,11 @@ const Row = styled.div`
 
 const Label = styled.label`
   background-color: ${props =>
-    props.className === "focused" ? "#49c6dd" : "#c7c4c4"};
+    props.className === "focused"
+      ? colors.templateLabelFocus
+      : colors.templateLabelBlur};
   border-radius: 6px;
-  color: #f7f6f6;
+  color: ${colors.templateLabelText};
   font-size: 1.5em;
   font-weight: bold;
   margin-right: 20px;
@@ -112,20 +115,20 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  border: 1px solid #c7c4c4;
+  border: 1px solid ${colors.inputBorder};
   font-size: ${props => getFontSizeFromType(props.className as RowType)};
   font-weight: bold;
   padding: 5px;
   width: 100%;
 
   &:focus {
-    outline: 3px solid #49c6dd;
+    outline: 3px solid ${colors.inputBorderFocus};
   }
 `;
 
 // font-family is needed for Firefox
 const Textarea = styled(TextareaAutosize)`
-  border: 1px solid #c7c4c4;
+  border: 1px solid ${colors.textareaBorder};
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 1.5em;
   line-height: 1.5em;
@@ -134,7 +137,7 @@ const Textarea = styled(TextareaAutosize)`
   width: 100%;
 
   &:focus {
-    outline: 3px solid #49c6dd;
+    outline: 3px solid ${colors.textareaBorderFocus};
   }
 `;
 

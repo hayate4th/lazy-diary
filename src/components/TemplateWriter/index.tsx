@@ -8,6 +8,7 @@ import { RowData, RowType } from "../../types/TemplateWriter";
 import Button from "../Button";
 import PreviewRow from "../PreviewRow";
 import { allRowsAreEmpty } from "../../utils/templateWriter";
+import colors from "../../utils/colors";
 
 export interface Props {
   rowList: RowData[];
@@ -103,7 +104,7 @@ const TemplateWriter: React.FC<Props> = ({
 };
 
 const Paper = styled.div`
-  color: #434344;
+  color: ${colors.paperBackground};
   padding: 10px 20px;
 `;
 
