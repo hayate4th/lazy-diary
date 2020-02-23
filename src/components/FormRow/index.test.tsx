@@ -5,10 +5,9 @@ import FormRow, { Props } from ".";
 
 describe("FormRow", () => {
   const baseProps: Props = {
-    name: "",
-    text: "",
-    value: "",
-    type: "",
+    fieldName: "",
+    labelText: "",
+    inputValue: "",
     onChangeHandler: jest.fn()
   };
 
