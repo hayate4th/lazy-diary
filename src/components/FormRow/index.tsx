@@ -3,12 +3,11 @@ import styled from "styled-components";
 
 import colors from "../../utils/colors";
 
-// TODO: Limit type property
 export interface Props {
   fieldName: string;
   labelText: string;
   inputValue: string;
-  inputType: string;
+  inputType?: string;
   errorMessage?: string;
   dataTestId?: string;
   onChangeHandler: (
