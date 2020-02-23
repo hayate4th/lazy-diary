@@ -27,28 +27,28 @@ const SignUpForm: React.FC<Props> = ({
   return (
     <form onSubmit={handleSubmit} data-testid="sign-up-form">
       <FormRow
-        name="email"
-        text="Email Address"
-        value={formValues.email}
-        type="email"
+        fieldName="email"
+        labelText="Email Address"
+        inputValue={formValues.email}
+        inputType="email"
         errorMessage={formErrors.email}
         dataTestId="sign-up-form-email-error"
         onChangeHandler={inputChangeHandler}
       />
       <FormRow
-        name="password"
-        text="Password"
-        value={formValues.password}
-        type="password"
+        fieldName="password"
+        labelText="Password"
+        inputValue={formValues.password}
+        inputType="password"
         errorMessage={formErrors.password}
         dataTestId="sign-up-form-password-error"
         onChangeHandler={inputChangeHandler}
       />
       <FormRow
-        name="confirmationPassword"
-        text="Confirm Password"
-        value={formValues.confirmationPassword!}
-        type="password"
+        fieldName="confirmationPassword"
+        labelText="Confirm Password"
+        inputValue={formValues.confirmationPassword!}
+        inputType="password"
         errorMessage={formErrors.confirmationPassword}
         dataTestId="sign-up-form-confirmation-password-error"
         onChangeHandler={inputChangeHandler}

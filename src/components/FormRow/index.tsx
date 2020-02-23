@@ -5,10 +5,10 @@ import colors from "../../utils/colors";
 
 // TODO: Limit type property
 export interface Props {
-  name: string;
-  text: string;
-  value: string;
-  type: string;
+  fieldName: string;
+  labelText: string;
+  inputValue: string;
+  inputType: string;
   errorMessage?: string;
   dataTestId?: string;
   onChangeHandler: (
@@ -18,23 +18,23 @@ export interface Props {
 }
 
 const FormRow: React.FC<Props> = ({
-  name,
-  text,
-  value,
-  type,
+  fieldName,
+  labelText,
+  inputValue,
+  inputType,
   errorMessage,
   dataTestId,
   onChangeHandler
 }) => {
   return (
     <Row>
-      <Label htmlFor={name}>{text}</Label>
+      <Label htmlFor={fieldName}>{labelText}</Label>
       <Input
-        id={name}
-        name={name}
-        type={type}
-        onChange={event => onChangeHandler(event, name)}
-        value={value}
+        id={fieldName}
+        name={fieldName}
+        type={inputType}
+        onChange={event => onChangeHandler(event, fieldName)}
+        value={inputValue}
       />
       {errorMessage && (
         <ErrorMessage data-testid={dataTestId}>{errorMessage}</ErrorMessage>
