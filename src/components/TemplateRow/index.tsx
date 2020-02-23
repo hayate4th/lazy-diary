@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import TextareaAutosize from "react-textarea-autosize";
+import { DraggableProvided } from "react-beautiful-dnd";
 
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
-import { DraggableProvided } from "react-beautiful-dnd";
 import colors from "../../utils/colors";
 
 export interface Props {

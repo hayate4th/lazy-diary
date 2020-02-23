@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { DropResult } from "react-beautiful-dnd";
 
 import TemplateWriterComponent from "../../components/TemplateWriter";
 import { RowData, RowType, OperationType } from "../../types/TemplateWriter";
@@ -6,7 +7,6 @@ import {
   changeRowTypeFromIsUp,
   reorderRowList
 } from "../../utils/templateWriter";
-import { DropResult } from "react-beautiful-dnd";
 
 const TemplateWriter: React.FC = () => {
   const [rowList, setRowList] = useState<RowData[]>([

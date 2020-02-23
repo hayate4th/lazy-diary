@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 import TemplateRowComponent from "../../components/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
 import { typeToText } from "../../utils/templateRow";
-import { Draggable } from "react-beautiful-dnd";
 
 interface Props extends RowData {
   index: number;
