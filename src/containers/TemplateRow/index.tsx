@@ -8,10 +8,7 @@ interface Props extends RowData {
   index: number;
   isDragDisabled: boolean;
   focusedRowName: string;
-  addNewRow: (type: RowType) => void;
-  deleteRow: (name: string) => void;
-  moveRow: (isDecrement: boolean) => void;
-  changeRowType: (name: string, type: RowType, isUp: boolean) => void;
+  rowOperationByKeyValue: (key: string, type: RowType) => void;
   changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -23,10 +20,7 @@ const TemplateRow: React.FC<Props> = ({
   type,
   value,
   focusedRowName,
-  addNewRow,
-  deleteRow,
-  moveRow,
-  changeRowType,
+  rowOperationByKeyValue,
   changeRowValue,
   setFocusedRowName
 }) => {
@@ -48,25 +42,7 @@ const TemplateRow: React.FC<Props> = ({
   ) => {
     const { shiftKey, key } = event;
     if (!shiftKey) return;
-    switch (key) {
-      case "Enter":
-        addNewRow(type);
-        return;
-      case "Backspace":
-        deleteRow(name);
-        return;
-      case "ArrowLeft":
-        changeRowType(name, type, true);
-        return;
-      case "ArrowRight":
-        changeRowType(name, type, false);
-        return;
-      case "ArrowUp":
-        moveRow(true);
-        return;
-      case "ArrowDown":
-        moveRow(false);
-    }
+    rowOperationByKeyValue(key, type);
   };
 
   const onChangeHandler = (

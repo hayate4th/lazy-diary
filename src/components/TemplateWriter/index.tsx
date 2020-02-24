@@ -15,10 +15,7 @@ export interface Props {
   focusedRowName: string;
   isPreviewMode: boolean;
   isDragAndDropMode: boolean;
-  addNewRow: (type: RowType) => void;
-  deleteRow: (name: string) => void;
-  moveRow: (isDecrement: boolean) => void;
-  changeRowType: (name: string, type: RowType, isUp: boolean) => void;
+  rowOperationByKeyValue: (key: string, type: RowType) => void;
   changeRowValue: (name: string, value: string) => void;
   onDragEnd: (result: DropResult) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
@@ -31,10 +28,7 @@ const TemplateWriter: React.FC<Props> = ({
   focusedRowName,
   isPreviewMode,
   isDragAndDropMode,
-  addNewRow,
-  deleteRow,
-  moveRow,
-  changeRowType,
+  rowOperationByKeyValue,
   changeRowValue,
   onDragEnd,
   setFocusedRowName,
@@ -86,10 +80,7 @@ const TemplateWriter: React.FC<Props> = ({
                   value={row.value}
                   isDragDisabled={!isDragAndDropMode}
                   focusedRowName={focusedRowName}
-                  addNewRow={addNewRow}
-                  deleteRow={deleteRow}
-                  moveRow={moveRow}
-                  changeRowType={changeRowType}
+                  rowOperationByKeyValue={rowOperationByKeyValue}
                   changeRowValue={changeRowValue}
                   setFocusedRowName={setFocusedRowName}
                 />
