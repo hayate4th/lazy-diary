@@ -3,7 +3,6 @@ import { Draggable } from "react-beautiful-dnd";
 
 import TemplateRowComponent from "../../components/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
-import { typeToText } from "../../utils/templateRow";
 
 interface Props extends RowData {
   index: number;
@@ -44,29 +43,29 @@ const TemplateRow: React.FC<Props> = ({
     }
   }, [focusedRowName, name, type]);
 
-  const onKeyDownHandler = (key: string) => {
-    if (key === "Enter") {
-      addNewRow(type);
-      return;
-    }
-    if (key === "Backspace") {
-      deleteRow(name);
-      return;
-    }
-    if (key === "ArrowLeft") {
-      changeRowType(name, type, true);
-      return;
-    }
-    if (key === "ArrowRight") {
-      changeRowType(name, type, false);
-      return;
-    }
-    if (key === "ArrowUp") {
-      moveRow(true);
-      return;
-    }
-    if (key === "ArrowDown") {
-      moveRow(false);
+  const onKeyDownHandler = (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { shiftKey, key } = event;
+    if (!shiftKey) return;
+    switch (key) {
+      case "Enter":
+        addNewRow(type);
+        return;
+      case "Backspace":
+        deleteRow(name);
+        return;
+      case "ArrowLeft":
+        changeRowType(name, type, true);
+        return;
+      case "ArrowRight":
+        changeRowType(name, type, false);
+        return;
+      case "ArrowUp":
+        moveRow(true);
+        return;
+      case "ArrowDown":
+        moveRow(false);
     }
   };
 
@@ -87,9 +86,10 @@ const TemplateRow: React.FC<Props> = ({
           fieldName={name}
           type={type}
           inputValue={value}
-          labelText={typeToText(type)}
           isDragDisabled={isDragDisabled}
-          isFocused={name === focusedRowName}
+          focusedClassName={
+            name === focusedRowName || !isDragDisabled ? "focused" : undefined
+          }
           draggableProvided={provided}
           onKeyDownHandler={onKeyDownHandler}
           onChangeHandler={onChangeHandler}

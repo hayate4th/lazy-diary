@@ -6,18 +6,20 @@ import { DraggableProvided } from "react-beautiful-dnd";
 import { RowType } from "../../types/TemplateWriter";
 import { getFontSizeFromType } from "../../utils/templateWriter";
 import colors from "../../utils/colors";
+import { typeToText } from "../../utils/templateRow";
 
 export interface Props {
   fieldName: string;
-  labelText: string;
   type: RowType;
   inputValue: string;
-  isFocused: boolean;
+  focusedClassName?: "focused";
   isDragDisabled: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
   textareaRef?: React.RefObject<HTMLTextAreaElement>;
   draggableProvided: DraggableProvided;
-  onKeyDownHandler: (key: string) => void;
+  onKeyDownHandler: (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   onChangeHandler: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -26,10 +28,9 @@ export interface Props {
 
 const TemplateRow: React.FC<Props> = ({
   fieldName,
-  labelText,
   type,
   inputValue,
-  isFocused,
+  focusedClassName,
   isDragDisabled,
   inputRef,
   textareaRef,
@@ -42,7 +43,7 @@ const TemplateRow: React.FC<Props> = ({
   const MIN_ROW_SIZE = 2;
 
   return (
-    <Row
+    <Wrapper
       ref={draggableProvided.innerRef}
       {...draggableProvided.draggableProps}
       {...draggableProvided.dragHandleProps}
@@ -50,11 +51,8 @@ const TemplateRow: React.FC<Props> = ({
       onBlur={() => setFocusedRowName("")}
       data-testid={`template-row-${fieldName}`}
     >
-      <Label
-        htmlFor={fieldName}
-        className={isFocused || !isDragDisabled ? "focused" : ""}
-      >
-        {labelText}
+      <Label htmlFor={fieldName} className={focusedClassName}>
+        {typeToText(type)}
       </Label>
       {(type === "TITLE" || type === "SUBTITLE") && (
         <Input
@@ -64,7 +62,7 @@ const TemplateRow: React.FC<Props> = ({
           value={inputValue}
           className={type}
           onChange={onChangeHandler}
-          onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
+          onKeyDown={onKeyDownHandler}
           ref={inputRef}
           data-testid="template-row-input"
           disabled={!isDragDisabled}
@@ -79,17 +77,17 @@ const TemplateRow: React.FC<Props> = ({
           maxRows={MAX_ROW_SIZE}
           minRows={MIN_ROW_SIZE}
           onChange={onChangeHandler}
-          onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
+          onKeyDown={onKeyDownHandler}
           inputRef={textareaRef}
           data-testid="template-row-textarea"
           disabled={!isDragDisabled}
         />
       )}
-    </Row>
+    </Wrapper>
   );
 };
 
-const Row = styled.div`
+const Wrapper = styled.div`
   align-items: center;
   display: flex;
   margin-bottom: 10px;
