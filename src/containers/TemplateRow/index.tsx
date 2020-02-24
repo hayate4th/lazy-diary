@@ -84,10 +84,10 @@ const TemplateRow: React.FC<Props> = ({
     >
       {provided => (
         <TemplateRowComponent
-          name={name}
+          fieldName={name}
           type={type}
-          value={value}
-          text={typeToText(type)}
+          inputValue={value}
+          labelText={typeToText(type)}
           isDragDisabled={isDragDisabled}
           isFocused={name === focusedRowName}
           draggableProvided={provided}

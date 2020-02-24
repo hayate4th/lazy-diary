@@ -8,10 +8,10 @@ import { getFontSizeFromType } from "../../utils/templateWriter";
 import colors from "../../utils/colors";
 
 export interface Props {
-  name: string;
-  text: string;
+  fieldName: string;
+  labelText: string;
   type: RowType;
-  value: string;
+  inputValue: string;
   isFocused: boolean;
   isDragDisabled: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
@@ -25,10 +25,10 @@ export interface Props {
 }
 
 const TemplateRow: React.FC<Props> = ({
-  name,
-  text,
+  fieldName,
+  labelText,
   type,
-  value,
+  inputValue,
   isFocused,
   isDragDisabled,
   inputRef,
@@ -46,22 +46,22 @@ const TemplateRow: React.FC<Props> = ({
       ref={draggableProvided.innerRef}
       {...draggableProvided.draggableProps}
       {...draggableProvided.dragHandleProps}
-      onFocus={() => setFocusedRowName(name)}
+      onFocus={() => setFocusedRowName(fieldName)}
       onBlur={() => setFocusedRowName("")}
-      data-testid={`template-row-${name}`}
+      data-testid={`template-row-${fieldName}`}
     >
       <Label
-        htmlFor={name}
+        htmlFor={fieldName}
         className={isFocused || !isDragDisabled ? "focused" : ""}
       >
-        {text}
+        {labelText}
       </Label>
       {(type === "TITLE" || type === "SUBTITLE") && (
         <Input
-          id={name}
-          name={name}
+          id={fieldName}
+          name={fieldName}
           type="text"
-          value={value}
+          value={inputValue}
           className={type}
           onChange={onChangeHandler}
           onKeyDown={event => event.shiftKey && onKeyDownHandler(event.key)}
@@ -72,9 +72,9 @@ const TemplateRow: React.FC<Props> = ({
       )}
       {type === "CONTENT" && (
         <Textarea
-          id={name}
-          name={name}
-          value={value}
+          id={fieldName}
+          name={fieldName}
+          value={inputValue}
           className={type}
           maxRows={MAX_ROW_SIZE}
           minRows={MIN_ROW_SIZE}

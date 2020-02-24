@@ -7,10 +7,10 @@ import { asA } from "../../utils/jest";
 
 describe("TemplateRow", () => {
   const baseProps: Props = {
-    name: "",
-    text: "",
+    fieldName: "",
+    labelText: "",
     type: "TITLE",
-    value: "",
+    inputValue: "",
     isFocused: false,
     isDragDisabled: true,
     draggableProvided: asA<DraggableProvided>({}),
