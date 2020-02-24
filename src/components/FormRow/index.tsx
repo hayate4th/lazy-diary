@@ -26,7 +26,7 @@ const FormRow: React.FC<Props> = ({
   onChangeHandler
 }) => {
   return (
-    <Row>
+    <Wrapper>
       <Label htmlFor={fieldName}>{labelText}</Label>
       <Input
         id={fieldName}
@@ -38,12 +38,12 @@ const FormRow: React.FC<Props> = ({
       {errorMessage && (
         <ErrorMessage data-testid={dataTestId}>{errorMessage}</ErrorMessage>
       )}
-    </Row>
+    </Wrapper>
   );
 };
 
-// TODO: Find a better way to create a space between the rows
-const Row = styled.div`
+// FIXME: Wrapper should not manage the margin between the lined up FormRows
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;

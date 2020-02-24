@@ -10,7 +10,7 @@ export interface Props {
   submitButtonIsDisabled: boolean;
   formValues: UserAuthenticationData;
   formErrors: FormikErrors<UserAuthenticationData>;
-  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   inputChangeHandler: (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: string
