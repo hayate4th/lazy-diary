@@ -10,7 +10,7 @@ export interface Props {
   signInButtonIsDisabled: boolean;
   formValues: UserAuthenticationData;
   formErrors: FormikErrors<UserAuthenticationData>;
-  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   inputChangeHandler: (
     event: React.ChangeEvent<HTMLInputElement>,
     fieldName: string
@@ -27,19 +27,19 @@ const SignInForm: React.FC<Props> = ({
   return (
     <form onSubmit={handleSubmit} data-testid="sign-in-form">
       <FormRow
-        name="email"
-        text="Email Address"
-        value={formValues.email}
-        type="email"
+        fieldName="email"
+        labelText="Email Address"
+        inputValue={formValues.email}
+        inputType="email"
         errorMessage={formErrors.email}
         dataTestId="sign-in-form-email-error"
         onChangeHandler={inputChangeHandler}
       />
       <FormRow
-        name="password"
-        text="Password"
-        value={formValues.password}
-        type="password"
+        fieldName="password"
+        labelText="Password"
+        inputValue={formValues.password}
+        inputType="password"
         errorMessage={formErrors.password}
         dataTestId="sign-in-form-password-error"
         onChangeHandler={inputChangeHandler}

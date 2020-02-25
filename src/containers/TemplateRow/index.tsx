@@ -1,18 +1,14 @@
 import React, { useRef, useEffect } from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 import TemplateRowComponent from "../../components/TemplateRow";
 import { RowData, RowType } from "../../types/TemplateWriter";
-import { typeToText } from "../../utils/templateRow";
-import { Draggable } from "react-beautiful-dnd";
 
 interface Props extends RowData {
   index: number;
   isDragDisabled: boolean;
   focusedRowName: string;
-  addNewRow: (type: RowType) => void;
-  deleteRow: (name: string) => void;
-  moveRow: (isDecrement: boolean) => void;
-  changeRowType: (name: string, type: RowType, isUp: boolean) => void;
+  rowOperationByKeyValue: (key: string, type: RowType) => void;
   changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -24,10 +20,7 @@ const TemplateRow: React.FC<Props> = ({
   type,
   value,
   focusedRowName,
-  addNewRow,
-  deleteRow,
-  moveRow,
-  changeRowType,
+  rowOperationByKeyValue,
   changeRowValue,
   setFocusedRowName
 }) => {
@@ -44,30 +37,12 @@ const TemplateRow: React.FC<Props> = ({
     }
   }, [focusedRowName, name, type]);
 
-  const onKeyDownHandler = (key: string) => {
-    if (key === "Enter") {
-      addNewRow(type);
-      return;
-    }
-    if (key === "Backspace") {
-      deleteRow(name);
-      return;
-    }
-    if (key === "ArrowLeft") {
-      changeRowType(name, type, true);
-      return;
-    }
-    if (key === "ArrowRight") {
-      changeRowType(name, type, false);
-      return;
-    }
-    if (key === "ArrowUp") {
-      moveRow(true);
-      return;
-    }
-    if (key === "ArrowDown") {
-      moveRow(false);
-    }
+  const onKeyDownHandler = (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { shiftKey, key } = event;
+    if (!shiftKey) return;
+    rowOperationByKeyValue(key, type);
   };
 
   const onChangeHandler = (
@@ -84,12 +59,13 @@ const TemplateRow: React.FC<Props> = ({
     >
       {provided => (
         <TemplateRowComponent
-          name={name}
+          fieldName={name}
           type={type}
-          value={value}
-          text={typeToText(type)}
+          inputValue={value}
           isDragDisabled={isDragDisabled}
-          isFocused={name === focusedRowName}
+          focusedClassName={
+            name === focusedRowName || !isDragDisabled ? "focused" : undefined
+          }
           draggableProvided={provided}
           onKeyDownHandler={onKeyDownHandler}
           onChangeHandler={onChangeHandler}

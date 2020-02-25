@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import colors from "../../utils/colors";
+
 interface Props {
   text: string;
   type?: "button" | "submit" | "reset";
@@ -30,10 +32,11 @@ const Button: React.FC<Props> = ({
 
 const StyledButton = styled.button`
   background: none;
-  background-color: ${props => (props.disabled ? "#c7c4c4" : "#49c6dd")};
+  background-color: ${props =>
+    props.disabled ? colors.buttonDisabled : colors.buttonPrimary};
   border: none;
   border-radius: 6px;
-  color: #f7f6f6;
+  color: ${colors.buttonText};
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 2em;
@@ -45,7 +48,7 @@ const StyledButton = styled.button`
   }
 
   &:active {
-    background: #c7c4c4;
+    background: ${colors.buttonPrimary};
   }
 `;
 

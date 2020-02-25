@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { DropResult } from "react-beautiful-dnd";
 
 import TemplateWriterComponent from "../../components/TemplateWriter";
 import { RowData, RowType, OperationType } from "../../types/TemplateWriter";
@@ -6,7 +7,6 @@ import {
   changeRowTypeFromIsUp,
   reorderRowList
 } from "../../utils/templateWriter";
-import { DropResult } from "react-beautiful-dnd";
 
 const TemplateWriter: React.FC = () => {
   const [rowList, setRowList] = useState<RowData[]>([
@@ -55,6 +55,7 @@ const TemplateWriter: React.FC = () => {
     setOperationType("DELETE_ROW");
   };
 
+  // TODO: Rename this to a better name
   const moveRow = (isDecrement: boolean) => {
     const matchObject = focusedRowName.match(/row(\d+)/);
     if (matchObject === null) return;
@@ -77,6 +78,28 @@ const TemplateWriter: React.FC = () => {
       )
     );
     setOperationType("CHANGE_ROW_TYPE");
+  };
+
+  const rowOperationByKeyValue = (key: string, type: RowType) => {
+    switch (key) {
+      case "Enter":
+        addNewRow(type);
+        break;
+      case "Backspace":
+        deleteRow(name);
+        break;
+      case "ArrowLeft":
+        changeRowType(name, type, true);
+        break;
+      case "ArrowRight":
+        changeRowType(name, type, false);
+        break;
+      case "ArrowUp":
+        moveRow(true);
+        break;
+      case "ArrowDown":
+        moveRow(false);
+    }
   };
 
   const changeRowValue = (name: string, value: string) => {
@@ -113,10 +136,7 @@ const TemplateWriter: React.FC = () => {
       focusedRowName={focusedRowName}
       isPreviewMode={isPreviewMode}
       isDragAndDropMode={isDragAndDropMode}
-      addNewRow={addNewRow}
-      deleteRow={deleteRow}
-      moveRow={moveRow}
-      changeRowType={changeRowType}
+      rowOperationByKeyValue={rowOperationByKeyValue}
       changeRowValue={changeRowValue}
       onDragEnd={onDragEnd}
       setFocusedRowName={setFocusedRowName}

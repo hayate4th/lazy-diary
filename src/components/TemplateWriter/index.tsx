@@ -8,16 +8,14 @@ import { RowData, RowType } from "../../types/TemplateWriter";
 import Button from "../Button";
 import PreviewRow from "../PreviewRow";
 import { allRowsAreEmpty } from "../../utils/templateWriter";
+import colors from "../../utils/colors";
 
 export interface Props {
   rowList: RowData[];
   focusedRowName: string;
   isPreviewMode: boolean;
   isDragAndDropMode: boolean;
-  addNewRow: (type: RowType) => void;
-  deleteRow: (name: string) => void;
-  moveRow: (isDecrement: boolean) => void;
-  changeRowType: (name: string, type: RowType, isUp: boolean) => void;
+  rowOperationByKeyValue: (key: string, type: RowType) => void;
   changeRowValue: (name: string, value: string) => void;
   onDragEnd: (result: DropResult) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
@@ -30,10 +28,7 @@ const TemplateWriter: React.FC<Props> = ({
   focusedRowName,
   isPreviewMode,
   isDragAndDropMode,
-  addNewRow,
-  deleteRow,
-  moveRow,
-  changeRowType,
+  rowOperationByKeyValue,
   changeRowValue,
   onDragEnd,
   setFocusedRowName,
@@ -85,10 +80,7 @@ const TemplateWriter: React.FC<Props> = ({
                   value={row.value}
                   isDragDisabled={!isDragAndDropMode}
                   focusedRowName={focusedRowName}
-                  addNewRow={addNewRow}
-                  deleteRow={deleteRow}
-                  moveRow={moveRow}
-                  changeRowType={changeRowType}
+                  rowOperationByKeyValue={rowOperationByKeyValue}
                   changeRowValue={changeRowValue}
                   setFocusedRowName={setFocusedRowName}
                 />
@@ -103,7 +95,7 @@ const TemplateWriter: React.FC<Props> = ({
 };
 
 const Paper = styled.div`
-  color: #434344;
+  color: ${colors.paperBackground};
   padding: 10px 20px;
 `;
 

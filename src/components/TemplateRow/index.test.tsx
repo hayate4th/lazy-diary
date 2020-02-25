@@ -7,11 +7,9 @@ import { asA } from "../../utils/jest";
 
 describe("TemplateRow", () => {
   const baseProps: Props = {
-    name: "",
-    text: "",
+    fieldName: "",
     type: "TITLE",
-    value: "",
-    isFocused: false,
+    inputValue: "",
     isDragDisabled: true,
     draggableProvided: asA<DraggableProvided>({}),
     onKeyDownHandler: jest.fn(),

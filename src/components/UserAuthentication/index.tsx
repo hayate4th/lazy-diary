@@ -6,13 +6,14 @@ import Button from "../Button";
 import SignUpForm from "../../containers/SignUpForm";
 import SignInForm from "../../containers/SignInForm";
 import { AuthenticationState } from "../../types/UserAuthentication";
+import colors from "../../utils/colors";
 
 Modal.setAppElement("body");
 const modalContentStyle = {
   content: {
     bottom: "auto",
-    backgroundColor: "#f7f6f6",
-    color: "#434344",
+    backgroundColor: colors.modalBackground,
+    color: colors.modalText,
     fontSize: "1em",
     left: "50%",
     right: "auto",

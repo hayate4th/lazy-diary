@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-// TODO: Limit type property
+import colors from "../../utils/colors";
+
 export interface Props {
-  name: string;
-  text: string;
-  value: string;
-  type: string;
+  fieldName: string;
+  labelText: string;
+  inputValue: string;
+  inputType?: string;
   errorMessage?: string;
   dataTestId?: string;
   onChangeHandler: (
@@ -16,33 +17,33 @@ export interface Props {
 }
 
 const FormRow: React.FC<Props> = ({
-  name,
-  text,
-  value,
-  type,
+  fieldName,
+  labelText,
+  inputValue,
+  inputType,
   errorMessage,
   dataTestId,
   onChangeHandler
 }) => {
   return (
-    <Row>
-      <Label htmlFor={name}>{text}</Label>
+    <Wrapper>
+      <Label htmlFor={fieldName}>{labelText}</Label>
       <Input
-        id={name}
-        name={name}
-        type={type}
-        onChange={event => onChangeHandler(event, name)}
-        value={value}
+        id={fieldName}
+        name={fieldName}
+        type={inputType}
+        onChange={event => onChangeHandler(event, fieldName)}
+        value={inputValue}
       />
       {errorMessage && (
         <ErrorMessage data-testid={dataTestId}>{errorMessage}</ErrorMessage>
       )}
-    </Row>
+    </Wrapper>
   );
 };
 
-// TODO: Find a better way to create a space between the rows
-const Row = styled.div`
+// FIXME: Wrapper should not manage the margin between the lined up FormRows
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
@@ -59,7 +60,7 @@ const Input = styled.input`
 `;
 
 const ErrorMessage = styled.div`
-  color: #f2426c;
+  color: ${colors.formErrorText};
   font-weight: bold;
 `;
 
