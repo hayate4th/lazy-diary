@@ -80,7 +80,7 @@ const TemplateWriter: React.FC = () => {
     setOperationType("CHANGE_ROW_TYPE");
   };
 
-  const rowOperationByKeyValue = (key: string, type: RowType) => {
+  const rowOperationByKeyValue = (key: string, name: string, type: RowType) => {
     switch (key) {
       case "Enter":
         addNewRow(type);

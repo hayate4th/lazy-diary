@@ -8,7 +8,7 @@ interface Props extends RowData {
   index: number;
   isDragDisabled: boolean;
   focusedRowName: string;
-  rowOperationByKeyValue: (key: string, type: RowType) => void;
+  rowOperationByKeyValue: (key: string, name: string, type: RowType) => void;
   changeRowValue: (name: string, value: string) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -42,7 +42,7 @@ const TemplateRow: React.FC<Props> = ({
   ) => {
     const { shiftKey, key } = event;
     if (!shiftKey) return;
-    rowOperationByKeyValue(key, type);
+    rowOperationByKeyValue(key, name, type);
   };
 
   const onChangeHandler = (

@@ -15,7 +15,7 @@ export interface Props {
   focusedRowName: string;
   isPreviewMode: boolean;
   isDragAndDropMode: boolean;
-  rowOperationByKeyValue: (key: string, type: RowType) => void;
+  rowOperationByKeyValue: (key: string, name: string, type: RowType) => void;
   changeRowValue: (name: string, value: string) => void;
   onDragEnd: (result: DropResult) => void;
   setFocusedRowName: React.Dispatch<React.SetStateAction<string>>;
